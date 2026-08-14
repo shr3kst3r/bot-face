@@ -54,12 +54,12 @@ png_data = bot_face.render_png(seed="alice@example.com", size=256, circle=True)
 avatar = bot_face.generate(
     seed="octocat",
     size=256,
-    corner_radius=24,      # 0 for square, >0 for rounded
-    circle=False,          # Set True for full circle profile image
+    corner_radius=24,  # 0 for square, >0 for rounded
+    circle=False,  # Set True for full circle profile image
     palette="cyber_mint",  # Optional explicit palette (or None for seeded choice)
-    has_hat=True,          # Optional override for hat presence
-    has_glasses=False,     # Optional override for eyewear
-    has_badge=True,        # Optional override for chest badge
+    has_hat=True,  # Optional override for hat presence
+    has_glasses=False,  # Optional override for eyewear
+    has_badge=True,  # Optional override for chest badge
 )
 
 # Save to disk (format inferred from extension)
@@ -71,7 +71,7 @@ avatar.save("avatar.webp")
 svg_string = avatar.to_svg()
 png_bytes = avatar.to_bytes("png")
 pil_image = avatar.to_image()  # PIL.Image.Image (RGBA)
-data_uri = avatar.to_data_uri("svg") # "data:image/svg+xml;base64,..."
+data_uri = avatar.to_data_uri("svg")  # "data:image/svg+xml;base64,..."
 ```
 
 ### Command-Line Interface (`bot-face` / `bf`)
