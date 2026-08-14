@@ -6,12 +6,12 @@ import xml.etree.ElementTree as ET
 
 from bot_face.generator import (
     ALL_BADGE_STYLES,
+    ALL_EYE_STYLES,
     ALL_HAT_STYLES,
     ANTENNA_STYLES,
     FACEPLATE_STYLES,
     HEAD_STYLES,
     MOUTH_STYLES,
-    NON_EYEWEAR_STYLES,
     TORSO_STYLES,
     generate,
 )
@@ -66,7 +66,7 @@ def test_all_anatomy_combinations_render_valid_svg() -> None:
         ET.fromstring(svg)
 
     # Test all eye styles
-    for e in [*NON_EYEWEAR_STYLES, "glasses", "sunglasses", "retro_goggles", "cyclops_visor"]:
+    for e in ALL_EYE_STYLES:
         b = generate(seed=f"eye_{e}")
         b.anatomy.eye_style = e
         svg = render_svg(b)

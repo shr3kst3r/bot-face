@@ -19,6 +19,8 @@ HEAD_STYLES = [
     "curved_hexagon",
     "cat_ears",
     "bear_ears",
+    "bunny_ears",
+    "astronaut_helmet",
 ]
 
 FACEPLATE_STYLES = ["screen", "inset", "bezel", "glowing", "flat"]
@@ -26,6 +28,9 @@ FACEPLATE_STYLES = ["screen", "inset", "bezel", "glowing", "flat"]
 EYEWEAR_STYLES = ["glasses", "sunglasses", "retro_goggles", "cyclops_visor"]
 NON_EYEWEAR_STYLES = [
     "glossy_pupil",
+    "sparkle_anime",
+    "wink",
+    "spiral",
     "led_matrix_happy",
     "led_matrix_dots",
     "led_matrix_stars",
@@ -35,7 +40,10 @@ ALL_EYE_STYLES = NON_EYEWEAR_STYLES + EYEWEAR_STYLES
 
 MOUTH_STYLES = [
     "happy_smile",
+    "open_smile",
     "cat_mouth",
+    "vamp_fang",
+    "mustache_grill",
     "speaker_grill",
     "wave_oscilloscope",
     "toothy_grin",
@@ -51,18 +59,51 @@ ANTENNA_STYLES = [
     "beacon_light",
     "earmuffs",
     "side_screws",
+    "halo",
+    "flower",
+    "devil_horns",
+    "lightbulb",
     "none",
 ]
 
 TORSO_STYLES = ["curved_chest", "striped_neck", "riveted_collar", "coil_connector"]
 
-BADGE_STYLES = ["heart", "star", "battery_meter", "power_button", "bolt"]
-ALL_BADGE_STYLES = ["none", "none", "heart", "star", "battery_meter", "power_button", "bolt"]
+BADGE_STYLES = [
+    "heart",
+    "star",
+    "battery_meter",
+    "power_button",
+    "bolt",
+    "bowtie",
+    "shield",
+    "reactor",
+]
+ALL_BADGE_STYLES = [
+    "none",
+    "none",
+    "heart",
+    "star",
+    "battery_meter",
+    "power_button",
+    "bolt",
+    "bowtie",
+    "shield",
+    "reactor",
+]
 
-HAT_STYLES = ["party_hat", "bowler_hat", "propeller_cap", "beanie", "crown"]
-ALL_HAT_STYLES = ["none", "none", "party_hat", "bowler_hat", "propeller_cap", "beanie", "crown"]
+HAT_STYLES = ["party_hat", "bowler_hat", "propeller_cap", "beanie", "crown", "chef_hat"]
+ALL_HAT_STYLES = [
+    "none",
+    "none",
+    "party_hat",
+    "bowler_hat",
+    "propeller_cap",
+    "beanie",
+    "crown",
+    "chef_hat",
+]
 
-CHEEK_STYLES = ["round_blush", "round_blush", "dash_blush", "heart_blush", "none"]
+CHEEK_STYLES = ["round_blush", "round_blush", "dash_blush", "heart_blush", "freckles", "none"]
 BACKGROUND_STYLES = ["solid", "linear_gradient", "radial_gradient"]
 EAR_DETAILS = ["bolts", "rings", "vents", "plain"]
 FOREHEAD_DETAILS = ["none", "rivets", "gem", "antennae_mount", "stripe"]
@@ -119,9 +160,11 @@ def generate(
     # Sample mouth
     mouth_style = rng.choice(MOUTH_STYLES)
 
-    # Sample antennae (if head already has animal ears, soften antenna probability)
-    if head_style in ("cat_ears", "bear_ears"):
-        antenna_style = rng.choice(["none", "none", "single_ball", "beacon_light"])
+    # Sample antennae (if head has animal ears, soften antenna probability)
+    if head_style in ("cat_ears", "bear_ears", "bunny_ears"):
+        antenna_style = rng.choice(
+            ["none", "none", "single_ball", "beacon_light", "halo", "flower"]
+        )
     else:
         antenna_style = rng.choice(ANTENNA_STYLES)
 
@@ -134,20 +177,19 @@ def generate(
     else:
         badge_style = rng.choice(ALL_BADGE_STYLES)
 
-    # Sample hat (if hat is worn, some antennae may be tucked or replaced)
+    # Sample hat
     if has_hat is True:
         hat_style = rng.choice(HAT_STYLES)
     elif has_hat is False:
         hat_style = "none"
     else:
-        # If head has cat/bear ears, reduce default hat rate
-        if head_style in ("cat_ears", "bear_ears"):
+        if head_style in ("cat_ears", "bear_ears", "bunny_ears"):
             hat_style = rng.choice(["none", "none", "none", "party_hat", "crown"])
         else:
             hat_style = rng.choice(ALL_HAT_STYLES)
 
-    # If wearing a bulky hat, override antenna to none or side screws to avoid overlap
-    if hat_style in ("bowler_hat", "beanie", "crown") and antenna_style not in (
+    # If wearing a bulky hat, avoid tall center antenna conflict
+    if hat_style in ("bowler_hat", "beanie", "crown", "chef_hat") and antenna_style not in (
         "earmuffs",
         "side_screws",
     ):

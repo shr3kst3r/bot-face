@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from bot_face.generator import (
     ALL_BADGE_STYLES,
+    ALL_EYE_STYLES,
     ALL_HAT_STYLES,
     ANTENNA_STYLES,
     CHEEK_STYLES,
@@ -12,7 +13,6 @@ from bot_face.generator import (
     FOREHEAD_DETAILS,
     HEAD_STYLES,
     MOUTH_STYLES,
-    NON_EYEWEAR_STYLES,
     TORSO_STYLES,
     generate,
 )
@@ -47,14 +47,7 @@ def test_all_raster_anatomy_combinations() -> None:
         assert img.size == (256, 256)
 
     # Render all eye styles in raster
-    all_eyes = [
-        *NON_EYEWEAR_STYLES,
-        "glasses",
-        "sunglasses",
-        "retro_goggles",
-        "cyclops_visor",
-    ]
-    for e in all_eyes:
+    for e in ALL_EYE_STYLES:
         b = generate(seed=f"raster_eye_{e}")
         b.anatomy.eye_style = e
         img = b.to_image()

@@ -8,32 +8,28 @@
     <linearGradient id="chassis-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#8338EC" /><stop offset="100%" stop-color="#6218CC" /></linearGradient>
     <linearGradient id="metal-shine" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" /><stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" /><stop offset="100%" stop-color="#000000" stop-opacity="0.15" /></linearGradient>
   </defs>
-  <rect x="0" y="0" width="256" height="256" fill="url(#bg-grad-radial)" />
+  <rect x="0" y="0" width="256" height="256" fill="url(#bg-grad-linear)" />
   <g clip-path="url(#avatar-clip)">
   <!-- Antenna / Top Gadget -->
-  <path d="M 88 56 L 82 46 L 94 38 L 84 28 L 90 20" stroke="#6218CC" stroke-width="4" fill="none" stroke-linecap="round" />  <circle cx="90" cy="16" r="9" fill="#FFBE0B" />  <circle cx="88" cy="14" r="2.5" fill="#FFFFFF" />
-  <path d="M 168 56 L 174 46 L 162 38 L 172 28 L 166 20" stroke="#6218CC" stroke-width="4" fill="none" stroke-linecap="round" />  <circle cx="166" cy="16" r="9" fill="#FFBE0B" />  <circle cx="164" cy="14" r="2.5" fill="#FFFFFF" />
+  <path d="M 88 56 L 82 46 L 94 38 L 84 28 L 90 20" stroke="#1C0D38" stroke-width="4.5" fill="none" stroke-linecap="round" />  <circle cx="90" cy="16" r="10" fill="#FFBE0B" stroke="#1C0D38" stroke-width="3.5" />  <circle cx="88" cy="14" r="3" fill="#FFFFFF" />  <path d="M 168 56 L 174 46 L 162 38 L 172 28 L 166 20" stroke="#1C0D38" stroke-width="4.5" fill="none" stroke-linecap="round" />  <circle cx="166" cy="16" r="10" fill="#FFBE0B" stroke="#1C0D38" stroke-width="3.5" />  <circle cx="164" cy="14" r="3" fill="#FFFFFF" />
   <!-- Neck -->
-  <rect x="110" y="165" width="36" height="30" rx="5" fill="#6218CC" />
+  <rect x="110" y="165" width="36" height="30" rx="5" fill="#6218CC" stroke="#1C0D38" stroke-width="3.5" />
   <!-- Torso -->
-  <path d="M 56 256 L 68 198 Q 72 190 84 190 L 172 190 Q 184 190 188 198 L 200 256 Z" fill="url(#chassis-grad)" />
-  <path d="M 84 190 L 172 190 L 166 200 L 90 200 Z" fill="#6218CC" opacity="0.6" />
+  <path d="M 52 256 L 66 198 Q 72 188 84 188 L 172 188 Q 184 188 190 198 L 204 256 Z" fill="url(#chassis-grad)" stroke="#1C0D38" stroke-width="5" />
+  <path d="M 84 188 L 172 188 L 166 198 L 90 198 Z" fill="#6218CC" opacity="0.7" />
   <!-- Chest Badge -->
-  <circle cx="128" cy="224" r="18" fill="#FFFFFF" opacity="0.8" />
-  <polygon points="128,214 131,221 138,221 132,226 135,233 128,229 121,233 124,226 118,221 125,221" fill="#FFBE0B" />
+  <polygon points="112,216 112,232 128,224" fill="#FFBE0B" stroke="#1C0D38" stroke-width="2" />  <polygon points="144,216 144,232 128,224" fill="#FFBE0B" stroke="#1C0D38" stroke-width="2" />  <circle cx="128" cy="224" r="4.5" fill="#1C0D38" />
   <!-- Ears / Side Attachments -->
-  <rect x="38" y="100" width="12" height="30" rx="3" fill="#6218CC" />  <line x1="40" y1="107" x2="48" y2="107" stroke="#2B2D42" stroke-width="2" />  <line x1="40" y1="115" x2="48" y2="115" stroke="#2B2D42" stroke-width="2" />  <line x1="40" y1="123" x2="48" y2="123" stroke="#2B2D42" stroke-width="2" />  <rect x="206" y="100" width="12" height="30" rx="3" fill="#6218CC" />  <line x1="208" y1="107" x2="216" y2="107" stroke="#2B2D42" stroke-width="2" />  <line x1="208" y1="115" x2="216" y2="115" stroke="#2B2D42" stroke-width="2" />  <line x1="208" y1="123" x2="216" y2="123" stroke="#2B2D42" stroke-width="2" />
+  <rect x="36" y="100" width="14" height="30" rx="3" fill="#6218CC" stroke="#1C0D38" stroke-width="3" />  <line x1="40" y1="107" x2="46" y2="107" stroke="#1C0D38" stroke-width="2.5" />  <line x1="40" y1="115" x2="46" y2="115" stroke="#1C0D38" stroke-width="2.5" />  <line x1="40" y1="123" x2="46" y2="123" stroke="#1C0D38" stroke-width="2.5" />  <rect x="206" y="100" width="14" height="30" rx="3" fill="#6218CC" stroke="#1C0D38" stroke-width="3" />  <line x1="210" y1="107" x2="216" y2="107" stroke="#1C0D38" stroke-width="2.5" />  <line x1="210" y1="115" x2="216" y2="115" stroke="#1C0D38" stroke-width="2.5" />  <line x1="210" y1="123" x2="216" y2="123" stroke="#1C0D38" stroke-width="2.5" />
   <!-- Head Base -->
-  <rect x="46" y="52" width="164" height="126" rx="32" ry="32" fill="url(#chassis-grad)" stroke="#6218CC" stroke-width="4" />
-  <circle cx="68" cy="68" r="3.5" fill="#2B2D42" />  <circle cx="128" cy="64" r="3.5" fill="#2B2D42" />  <circle cx="188" cy="68" r="3.5" fill="#2B2D42" />
+  <rect x="52" y="48" width="152" height="132" rx="60" ry="60" fill="url(#chassis-grad)" stroke="#1C0D38" stroke-width="5" />
+  <circle cx="68" cy="68" r="3.5" fill="#1C0D38" />  <circle cx="128" cy="64" r="3.5" fill="#1C0D38" />  <circle cx="188" cy="68" r="3.5" fill="#1C0D38" />
   <!-- Faceplate Screen -->
-  <rect x="66" y="74" width="124" height="88" rx="18" ry="18" fill="#FFFFFF" />
+  <rect x="66" y="74" width="124" height="88" rx="18" ry="18" fill="#FFFFFF" stroke="#1C0D38" stroke-width="3" />
   <!-- Eyes / Eyewear -->
-  <circle cx="98" cy="106" r="16" fill="#2B2D42" />  <circle cx="98" cy="106" r="14" fill="#3A86FF" />  <circle cx="98" cy="106" r="9" fill="#2B2D42" />  <circle cx="95" cy="102" r="4.5" fill="#FFFFFF" />  <circle cx="102" cy="110" r="2" fill="#FFFFFF" />
-  <circle cx="158" cy="106" r="16" fill="#2B2D42" />  <circle cx="158" cy="106" r="14" fill="#3A86FF" />  <circle cx="158" cy="106" r="9" fill="#2B2D42" />  <circle cx="155" cy="102" r="4.5" fill="#FFFFFF" />  <circle cx="162" cy="110" r="2" fill="#FFFFFF" />
-  <!-- Cheeks -->
-  <path d="M 80 138 C 80 138, 73 133, 73 129 C 73 126, 75 125, 77.5 125 C 79 125, 80 126.5, 80 126.5 C 80 126.5, 81 125, 82.5 125 C 85 125, 87 126, 87 129 C 87 133, 80 138, 80 138 Z" fill="#FF85A2" />  <path d="M 176 138 C 176 138, 169 133, 169 129 C 169 126, 171 125, 173.5 125 C 175 125, 176 126.5, 176 126.5 C 176 126.5, 177 125, 178.5 125 C 181 125, 183 126, 183 129 C 183 133, 176 138, 176 138 Z" fill="#FF85A2" />
+  <circle cx="98" cy="106" r="17" fill="#1C0D38" />  <circle cx="98" cy="106" r="14" fill="#3A86FF" />  <circle cx="98" cy="106" r="9" fill="#1C0D38" />  <circle cx="95" cy="102" r="4.5" fill="#FFFFFF" />  <circle cx="102" cy="110" r="2" fill="#FFFFFF" />
+  <circle cx="158" cy="106" r="17" fill="#1C0D38" />  <circle cx="158" cy="106" r="14" fill="#3A86FF" />  <circle cx="158" cy="106" r="9" fill="#1C0D38" />  <circle cx="155" cy="102" r="4.5" fill="#FFFFFF" />  <circle cx="162" cy="110" r="2" fill="#FFFFFF" />
   <!-- Mouth / Expression -->
-  <rect x="110" y="134" width="36" height="15" rx="3" fill="#2B2D42" />  <rect x="113" y="136" width="6" height="11" fill="#FFFFFF" />  <rect x="121" y="136" width="6" height="11" fill="#FFFFFF" />  <rect x="129" y="136" width="6" height="11" fill="#FFFFFF" />  <rect x="137" y="136" width="6" height="11" fill="#FFFFFF" />
+  <rect x="108" y="133" width="40" height="16" rx="4" fill="#1C0D38" />  <rect x="112" y="141" width="4" height="4" rx="1" fill="#3A86FF" />  <rect x="118" y="139" width="4" height="6" rx="1" fill="#3A86FF" />  <rect x="124" y="136" width="4" height="9" rx="1" fill="#3A86FF" />  <rect x="130" y="138" width="4" height="7" rx="1" fill="#FFBE0B" />  <rect x="136" y="141" width="4" height="4" rx="1" fill="#FFBE0B" />
   </g>
 </svg>

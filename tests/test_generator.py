@@ -79,6 +79,9 @@ def test_generate_badge_override() -> None:
         "battery_meter",
         "power_button",
         "bolt",
+        "bowtie",
+        "shield",
+        "reactor",
     ]
 
     bot_no_badge = generate(seed="test", has_badge=False)
