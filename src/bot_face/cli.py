@@ -142,6 +142,13 @@ def generate_cmd(
             help="Force cute cat robot features (cat ears, whiskers, cat mouth).",
         ),
     ] = None,
+    shading: Annotated[
+        bool,
+        typer.Option(
+            "--shading/--no-shading",
+            help="Enable or disable 3D cel-shading, highlights, and depth bevels.",
+        ),
+    ] = True,
     data_uri: Annotated[
         bool,
         typer.Option(
@@ -176,6 +183,7 @@ def generate_cmd(
         has_glasses=glasses,
         has_badge=badge,
         cat=cat,
+        shading=shading,
     )
 
     # If data-uri requested
@@ -291,6 +299,13 @@ def batch_cmd(
             help="Force cute cat robot features (cat ears, whiskers, cat mouth).",
         ),
     ] = None,
+    shading: Annotated[
+        bool,
+        typer.Option(
+            "--shading/--no-shading",
+            help="Enable or disable 3D cel-shading and highlights.",
+        ),
+    ] = True,
 ) -> None:
     """Generate multiple avatars in batch."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -310,6 +325,7 @@ def batch_cmd(
             palette=palette,
             filter=filter_opt,
             cat=cat,
+            shading=shading,
         )
         safe_name = "".join(c if c.isalnum() or c in "-_" else "_" for c in s)[:48]
         out_file = output_dir / f"{safe_name}.{ext}"
@@ -351,9 +367,16 @@ def preview_cmd(
             help="Force cute cat robot features.",
         ),
     ] = None,
+    shading: Annotated[
+        bool,
+        typer.Option(
+            "--shading/--no-shading",
+            help="Enable or disable 3D cel-shading.",
+        ),
+    ] = True,
 ) -> None:
     """Inspect the generated features and colors for a given seed."""
-    avatar = generate(seed=seed, palette=palette, filter=filter_opt, cat=cat)
+    avatar = generate(seed=seed, palette=palette, filter=filter_opt, cat=cat, shading=shading)
     a = avatar.anatomy
     p = avatar.palette
 

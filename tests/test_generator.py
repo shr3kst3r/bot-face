@@ -99,3 +99,15 @@ def test_generate_cat_override() -> None:
     non_cat_bot = generate(seed="cat_test", cat=False)
     assert non_cat_bot.anatomy.head_style != "cat_ears"
     assert non_cat_bot.anatomy.has_whiskers is False
+
+
+def test_generate_shading_override() -> None:
+    shaded = generate(seed="shading_test", shading=True)
+    assert shaded.config.shading is True
+    assert "chassis-grad" in shaded.to_svg()
+    assert shaded.to_image().size == (256, 256)
+
+    flat = generate(seed="shading_test", shading=False)
+    assert flat.config.shading is False
+    assert flat.to_svg().startswith("<svg")
+    assert flat.to_image().size == (256, 256)

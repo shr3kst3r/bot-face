@@ -62,6 +62,15 @@ def test_cli_generate_cat(tmp_path: Path) -> None:
     assert out_file.exists()
 
 
+def test_cli_generate_shading(tmp_path: Path) -> None:
+    out_file = tmp_path / "flat_bot.svg"
+    result = runner.invoke(
+        app, ["generate", "flat_lover", "--no-shading", "--output", str(out_file)]
+    )
+    assert result.exit_code == 0
+    assert out_file.exists()
+
+
 def test_cli_generate_invalid_filter() -> None:
     result = runner.invoke(app, ["generate", "seed", "--filter", "bad_filter"])
     assert result.exit_code == 1

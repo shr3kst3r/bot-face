@@ -53,6 +53,10 @@ class AvatarConfig(BaseModel):
         default=None,
         description="Force cute cat robot features (cat ears, whiskers, cat mouth, bell collar).",
     )
+    shading: bool = Field(
+        default=True,
+        description="Enable dimensional cel-shading, highlights, and shadow accents.",
+    )
 
     @field_validator("corner_radius")
     @classmethod

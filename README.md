@@ -12,6 +12,7 @@ A lightweight, high-performance Python library and CLI for generating bright, cu
 
 - **🎨 Bright & Cheerful Aesthetics**: 40 curated, vibrant color themes (Bubblegum, Cyber Mint, Sunny Lemon, Cyberpunk 2077, Galaxy Nebula, Abyssal Deep, Dragonfruit, and more). See [EXAMPLES.md](EXAMPLES.md) for full visual gallery.
 - **🐱 Cute Cat Robot Mode**: Dedicated `--cat` feature set adding robotic cat ears, whiskers, feline slit pupils, `:3` cat mouths, bell collars, and pawprint/fishbone chest badges.
+- **💡 3D Cel-Shading & Flat Modes**: Toggle between dimensional lighting with specular highlight cuts and glass faceplate sheens (`shading=True`) or clean minimalist flat illustration (`--no-shading`).
 - **🕹️ Retro Looks & Filters**:
   - `8bit`: Chunky retro arcade / NES pixel art with 16-color quantization.
   - `16bit`: Smooth 16-bit SNES / Genesis pixel art with dithering.
@@ -96,6 +97,9 @@ bf generate "neko_chan" --cat --palette bubblegum --radius 32 --output cat.png
 # Generate with 8-bit retro pixel art filter
 bf generate "cyber_samurai" --filter 8bit --radius 16 --output retro.png
 bf generate "bob@example.com" --output avatar.svg --circle
+
+# Generate flat minimalist avatar without shading
+bf generate "minimal_bot" --no-shading --output flat.svg
 
 # Apply retro 8-bit or 16-bit pixel filters
 bf generate "retro_hero" --output hero_8bit.png --filter 8bit

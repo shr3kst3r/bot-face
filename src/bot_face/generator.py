@@ -137,6 +137,7 @@ def generate(
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
     cat: bool | None = None,
+    shading: bool = True,
 ) -> RobotAvatar:
     """Generate a cute robot avatar from configuration options and seed."""
     effective_seed = seed
@@ -265,6 +266,7 @@ def generate(
         has_glasses=has_glasses,
         has_badge=has_badge,
         cat=cat,
+        shading=shading,
     )
 
     return RobotAvatar(

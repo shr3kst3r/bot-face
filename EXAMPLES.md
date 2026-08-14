@@ -8,6 +8,8 @@ A collection of example robot avatars generated with `bot-face`, demonstrating 4
 
 | Preview | Seed | Palette | Filter / Style | Description |
 |---|---|---|---|---|
+| <img src="docs/examples/shaded_avatar.png" width="128" /> | `vector_bot` | `bubblegum` | Shaded (Default) | Full 3D cel-shading with specular head highlight, chassis depth bevel, and glass faceplate sheen. |
+| <img src="docs/examples/flat_avatar.png" width="128" /> | `vector_bot` | `bubblegum` | `--no-shading` | Clean flat minimalist vector styling without gradients or shadow cuts. |
 | <img src="docs/examples/cat_bot_neko.png" width="128" /> | `cat_bot_neko` | `bubblegum` | `--cat` (Radius: 32px) | Sweet bubblegum cat robot with whiskers, cat mouth `:3`, party hat, and bell collar. |
 | <img src="docs/examples/calico_bot.png" width="128" /> | `calico_bot` | `caramel_latte` | `--cat` (Circle Clip) | Circular caramel calico robot cat with glowing `^ ^` eyes, cute fangs, heart blush, and bell collar. |
 | <img src="docs/examples/cyber_cat_9000.png" width="128" /> | `cyber_cat_9000` | `cyberpunk_2077` | `--cat` (`8bit`, Radius: 16px) | Cyberpunk 2077 neon yellow cat bot with whiskers, crown, and 8-bit retro pixel filter. |

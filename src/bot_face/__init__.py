@@ -24,6 +24,7 @@ def render_svg(
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
     cat: bool | None = None,
+    shading: bool = True,
 ) -> str:
     """Convenience helper to generate an avatar and return its standalone SVG string."""
     avatar = generate(
@@ -37,6 +38,7 @@ def render_svg(
         has_glasses=has_glasses,
         has_badge=has_badge,
         cat=cat,
+        shading=shading,
     )
     return avatar.to_svg()
 
@@ -52,6 +54,7 @@ def render_png(
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
     cat: bool | None = None,
+    shading: bool = True,
 ) -> bytes:
     """Convenience helper to generate an avatar and return encoded PNG bytes."""
     avatar = generate(
@@ -65,6 +68,7 @@ def render_png(
         has_glasses=has_glasses,
         has_badge=has_badge,
         cat=cat,
+        shading=shading,
     )
     return avatar.to_bytes("png")
 
