@@ -15,9 +15,13 @@ from bot_face.colors import (
 
 def test_list_palettes() -> None:
     palettes = list_palettes()
-    assert len(palettes) >= 10
+    assert len(palettes) >= 40
     assert "bubblegum" in palettes
     assert "cyber_mint" in palettes
+    assert "cyberpunk_2077" in palettes
+    assert "abyssal_deep" in palettes
+    assert "galaxy_nebula" in palettes
+    assert "dragonfruit" in palettes
     assert "sunny_lemon" in palettes
     assert sorted(palettes) == palettes
 

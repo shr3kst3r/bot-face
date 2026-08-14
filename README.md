@@ -10,7 +10,7 @@ A lightweight, high-performance Python library and CLI for generating bright, cu
 
 ## ✨ Features
 
-- **🎨 Bright & Cheerful Aesthetics**: 12 curated, vibrant color themes (Bubblegum, Cyber Mint, Sunny Lemon, Electric Berry, Neon Coral, and more). See [EXAMPLES.md](EXAMPLES.md) for full visual gallery.
+- **🎨 Bright & Cheerful Aesthetics**: 40 curated, vibrant color themes (Bubblegum, Cyber Mint, Sunny Lemon, Cyberpunk 2077, Galaxy Nebula, Abyssal Deep, Dragonfruit, and more). See [EXAMPLES.md](EXAMPLES.md) for full visual gallery.
 - **🕹️ Retro Looks & Filters**:
   - `8bit`: Chunky retro arcade / NES pixel art with 16-color quantization.
   - `16bit`: Smooth 16-bit SNES / Genesis pixel art with dithering.
