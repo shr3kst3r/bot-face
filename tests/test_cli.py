@@ -55,6 +55,13 @@ def test_cli_generate_with_filter(tmp_path: Path) -> None:
     assert out_file.exists()
 
 
+def test_cli_generate_cat(tmp_path: Path) -> None:
+    out_file = tmp_path / "cat_bot.png"
+    result = runner.invoke(app, ["generate", "cat_lover", "--cat", "--output", str(out_file)])
+    assert result.exit_code == 0
+    assert out_file.exists()
+
+
 def test_cli_generate_invalid_filter() -> None:
     result = runner.invoke(app, ["generate", "seed", "--filter", "bad_filter"])
     assert result.exit_code == 1

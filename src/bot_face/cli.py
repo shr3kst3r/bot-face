@@ -135,6 +135,13 @@ def generate_cmd(
             help="Force chest badge presence or absence.",
         ),
     ] = None,
+    cat: Annotated[
+        bool | None,
+        typer.Option(
+            "--cat/--no-cat",
+            help="Force cute cat robot features (cat ears, whiskers, cat mouth).",
+        ),
+    ] = None,
     data_uri: Annotated[
         bool,
         typer.Option(
@@ -168,6 +175,7 @@ def generate_cmd(
         has_hat=hat,
         has_glasses=glasses,
         has_badge=badge,
+        cat=cat,
     )
 
     # If data-uri requested
@@ -276,6 +284,13 @@ def batch_cmd(
             help="Retro style or filter: '8bit', '16bit', 'gameboy', 'crt', etc.",
         ),
     ] = None,
+    cat: Annotated[
+        bool | None,
+        typer.Option(
+            "--cat/--no-cat",
+            help="Force cute cat robot features (cat ears, whiskers, cat mouth).",
+        ),
+    ] = None,
 ) -> None:
     """Generate multiple avatars in batch."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -294,6 +309,7 @@ def batch_cmd(
             circle=circle,
             palette=palette,
             filter=filter_opt,
+            cat=cat,
         )
         safe_name = "".join(c if c.isalnum() or c in "-_" else "_" for c in s)[:48]
         out_file = output_dir / f"{safe_name}.{ext}"
@@ -328,9 +344,16 @@ def preview_cmd(
             help="Retro style or filter to apply.",
         ),
     ] = None,
+    cat: Annotated[
+        bool | None,
+        typer.Option(
+            "--cat/--no-cat",
+            help="Force cute cat robot features.",
+        ),
+    ] = None,
 ) -> None:
     """Inspect the generated features and colors for a given seed."""
-    avatar = generate(seed=seed, palette=palette, filter=filter_opt)
+    avatar = generate(seed=seed, palette=palette, filter=filter_opt, cat=cat)
     a = avatar.anatomy
     p = avatar.palette
 

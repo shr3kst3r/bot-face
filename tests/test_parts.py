@@ -109,3 +109,9 @@ def test_all_raster_anatomy_combinations() -> None:
         b.anatomy.torso_style = t
         img = b.to_image()
         assert img.size == (256, 256)
+
+    # Render whiskers in raster and svg
+    b_whiskers = generate(seed="whiskers_test", cat=True)
+    b_whiskers.anatomy.has_whiskers = True
+    assert b_whiskers.to_image().size == (256, 256)
+    assert "Cat Whiskers" in b_whiskers.to_svg()

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from bot_face.parts.accessories import render_svg_cheeks, render_svg_hat
+from bot_face.parts.accessories import render_svg_cheeks, render_svg_hat, render_svg_whiskers
 from bot_face.parts.antennae import render_svg_antenna
 from bot_face.parts.backgrounds import render_svg_background
 from bot_face.parts.bodies import render_svg_body
@@ -42,6 +42,10 @@ def render_svg(avatar: RobotAvatar) -> str:
     cheeks_svg = render_svg_cheeks(avatar)
     if cheeks_svg:
         lines.append(cheeks_svg)
+
+    whiskers_svg = render_svg_whiskers(avatar)
+    if whiskers_svg:
+        lines.append(whiskers_svg)
 
     lines.append(render_svg_mouth(avatar))
 

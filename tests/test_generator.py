@@ -82,7 +82,20 @@ def test_generate_badge_override() -> None:
         "bowtie",
         "shield",
         "reactor",
+        "pawprint",
+        "fishbone",
     ]
 
     bot_no_badge = generate(seed="test", has_badge=False)
     assert bot_no_badge.anatomy.badge_style == "none"
+
+
+def test_generate_cat_override() -> None:
+    cat_bot = generate(seed="cat_test", cat=True)
+    assert cat_bot.anatomy.head_style == "cat_ears"
+    assert cat_bot.anatomy.has_whiskers is True
+    assert cat_bot.to_svg().startswith("<svg")
+
+    non_cat_bot = generate(seed="cat_test", cat=False)
+    assert non_cat_bot.anatomy.head_style != "cat_ears"
+    assert non_cat_bot.anatomy.has_whiskers is False

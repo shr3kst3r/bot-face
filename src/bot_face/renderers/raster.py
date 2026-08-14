@@ -6,7 +6,11 @@ from typing import TYPE_CHECKING
 
 from PIL import Image, ImageDraw
 
-from bot_face.parts.accessories import render_raster_cheeks, render_raster_hat
+from bot_face.parts.accessories import (
+    render_raster_cheeks,
+    render_raster_hat,
+    render_raster_whiskers,
+)
 from bot_face.parts.antennae import render_raster_antenna
 from bot_face.parts.backgrounds import render_raster_background
 from bot_face.parts.bodies import render_raster_body
@@ -48,10 +52,13 @@ def render_pillow_image(avatar: RobotAvatar) -> Image.Image:
     # 6. Cheeks
     render_raster_cheeks(draw, avatar, scale=scale)
 
-    # 7. Mouth
+    # 7. Whiskers
+    render_raster_whiskers(draw, avatar, scale=scale)
+
+    # 8. Mouth
     render_raster_mouth(draw, avatar, scale=scale)
 
-    # 8. Hat
+    # 9. Hat
     render_raster_hat(draw, avatar, scale=scale)
 
     # Apply corner clipping mask

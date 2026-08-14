@@ -11,6 +11,7 @@ A lightweight, high-performance Python library and CLI for generating bright, cu
 ## ✨ Features
 
 - **🎨 Bright & Cheerful Aesthetics**: 40 curated, vibrant color themes (Bubblegum, Cyber Mint, Sunny Lemon, Cyberpunk 2077, Galaxy Nebula, Abyssal Deep, Dragonfruit, and more). See [EXAMPLES.md](EXAMPLES.md) for full visual gallery.
+- **🐱 Cute Cat Robot Mode**: Dedicated `--cat` feature set adding robotic cat ears, whiskers, feline slit pupils, `:3` cat mouths, bell collars, and pawprint/fishbone chest badges.
 - **🕹️ Retro Looks & Filters**:
   - `8bit`: Chunky retro arcade / NES pixel art with 16-color quantization.
   - `16bit`: Smooth 16-bit SNES / Genesis pixel art with dithering.
@@ -68,6 +69,7 @@ avatar = bot_face.generate(
     circle=False,  # Set True for full circle profile image
     palette="cyber_mint",  # Optional explicit palette (or None for seeded choice)
     filter="8bit",  # Retro style: '8bit', '16bit', 'gameboy', 'crt', 'blueprint', etc.
+    cat=True,  # Force cute robot cat features (whiskers, ears, cat mouth, bell collar)
     has_hat=True,  # Optional override for hat presence
     has_glasses=False,  # Optional override for eyewear
     has_badge=True,  # Optional override for chest badge
@@ -78,24 +80,26 @@ avatar.save("avatar.png")
 avatar.save("avatar.svg")
 avatar.save("avatar.webp")
 
-# Export formats
-svg_string = avatar.to_svg()
-png_bytes = avatar.to_bytes("png")
-pil_image = avatar.to_image()  # PIL.Image.Image (RGBA)
-data_uri = avatar.to_data_uri("svg")  # "data:image/svg+xml;base64,..."
+# Export as base64 data: URI string for HTML/CSS embedding
+data_uri = avatar.to_data_uri(format="svg")
 ```
 
 ### Command-Line Interface (`bot-face` / `bf`)
 
 ```bash
-# Generate a single avatar
-bf generate "alice@example.com" --output avatar.png --radius 32
+# Generate avatar with seeded random features
+bf generate "user_42" --radius 32 --output avatar.png
+
+# Generate a cute robot cat avatar with whiskers and bell collar
+bf generate "neko_chan" --cat --palette bubblegum --radius 32 --output cat.png
+
+# Generate with 8-bit retro pixel art filter
+bf generate "cyber_samurai" --filter 8bit --radius 16 --output retro.png
 bf generate "bob@example.com" --output avatar.svg --circle
 
 # Apply retro 8-bit or 16-bit pixel filters
 bf generate "retro_hero" --output hero_8bit.png --filter 8bit
 bf generate "retro_hero" --output hero_gameboy.png --filter gameboy
-bf generate "retro_hero" --output hero_crt.png --filter crt
 
 # Random generation
 bf generate --random --output random_bot.png

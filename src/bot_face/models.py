@@ -31,6 +31,7 @@ class RobotAnatomy(BaseModel):
     background_style: str
     ear_detail: str
     forehead_detail: str
+    has_whiskers: bool = False
 
 
 class RobotAvatar(BaseModel):

@@ -29,6 +29,7 @@ EYEWEAR_STYLES = ["glasses", "sunglasses", "retro_goggles", "cyclops_visor"]
 NON_EYEWEAR_STYLES = [
     "glossy_pupil",
     "sparkle_anime",
+    "feline_slits",
     "wink",
     "spiral",
     "led_matrix_happy",
@@ -66,7 +67,7 @@ ANTENNA_STYLES = [
     "none",
 ]
 
-TORSO_STYLES = ["curved_chest", "striped_neck", "riveted_collar", "coil_connector"]
+TORSO_STYLES = ["curved_chest", "striped_neck", "riveted_collar", "coil_connector", "bell_collar"]
 
 BADGE_STYLES = [
     "heart",
@@ -77,6 +78,8 @@ BADGE_STYLES = [
     "bowtie",
     "shield",
     "reactor",
+    "pawprint",
+    "fishbone",
 ]
 ALL_BADGE_STYLES = [
     "none",
@@ -89,6 +92,8 @@ ALL_BADGE_STYLES = [
     "bowtie",
     "shield",
     "reactor",
+    "pawprint",
+    "fishbone",
 ]
 
 HAT_STYLES = ["party_hat", "bowler_hat", "propeller_cap", "beanie", "crown", "chef_hat"]
@@ -131,6 +136,7 @@ def generate(
     has_hat: bool | None = None,
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
+    cat: bool | None = None,
 ) -> RobotAvatar:
     """Generate a cute robot avatar from configuration options and seed."""
     effective_seed = seed
@@ -145,8 +151,21 @@ def generate(
         chosen_palette = rng.choice(palette_names)
         color_palette = get_palette(chosen_palette)
 
-    # Sample head style
-    head_style = rng.choice(HEAD_STYLES)
+    # Cat feature overrides
+    if cat is True:
+        head_style = "cat_ears"
+        mouth_style = rng.choice(["cat_mouth", "happy_smile", "open_smile", "vamp_fang"])
+        has_whiskers = True
+    elif cat is False:
+        non_cat_heads = [h for h in HEAD_STYLES if h != "cat_ears"]
+        head_style = rng.choice(non_cat_heads)
+        mouth_style = rng.choice(MOUTH_STYLES)
+        has_whiskers = False
+    else:
+        head_style = rng.choice(HEAD_STYLES)
+        mouth_style = rng.choice(MOUTH_STYLES)
+        has_whiskers = (head_style == "cat_ears" and rng.random() < 0.8) or (rng.random() < 0.15)
+
     faceplate_style = rng.choice(FACEPLATE_STYLES)
 
     # Sample eyes & glasses
@@ -155,10 +174,19 @@ def generate(
     elif has_glasses is False:
         eye_style = rng.choice(NON_EYEWEAR_STYLES)
     else:
-        eye_style = rng.choice(ALL_EYE_STYLES)
-
-    # Sample mouth
-    mouth_style = rng.choice(MOUTH_STYLES)
+        if cat is True:
+            eye_style = rng.choice(
+                [
+                    "feline_slits",
+                    "glossy_pupil",
+                    "sparkle_anime",
+                    "wink",
+                    "led_matrix_happy",
+                    "sunglasses",
+                ]
+            )
+        else:
+            eye_style = rng.choice(ALL_EYE_STYLES)
 
     # Sample antennae (if head has animal ears, soften antenna probability)
     if head_style in ("cat_ears", "bear_ears", "bunny_ears"):
@@ -169,13 +197,23 @@ def generate(
         antenna_style = rng.choice(ANTENNA_STYLES)
 
     # Sample torso & badge
-    torso_style = rng.choice(TORSO_STYLES)
+    if cat is True:
+        torso_style = rng.choice(["bell_collar", "bell_collar", "curved_chest", "striped_neck"])
+    else:
+        torso_style = rng.choice(TORSO_STYLES)
+
     if has_badge is True:
-        badge_style = rng.choice(BADGE_STYLES)
+        if cat is True:
+            badge_style = rng.choice(["pawprint", "fishbone", "heart", "bell"])
+        else:
+            badge_style = rng.choice(BADGE_STYLES)
     elif has_badge is False:
         badge_style = "none"
     else:
-        badge_style = rng.choice(ALL_BADGE_STYLES)
+        if cat is True:
+            badge_style = rng.choice(["pawprint", "fishbone", "heart", "none", "none"])
+        else:
+            badge_style = rng.choice(ALL_BADGE_STYLES)
 
     # Sample hat
     if has_hat is True:
@@ -184,7 +222,7 @@ def generate(
         hat_style = "none"
     else:
         if head_style in ("cat_ears", "bear_ears", "bunny_ears"):
-            hat_style = rng.choice(["none", "none", "none", "party_hat", "crown"])
+            hat_style = rng.choice(["none", "none", "none", "party_hat", "crown", "chef_hat"])
         else:
             hat_style = rng.choice(ALL_HAT_STYLES)
 
@@ -213,6 +251,7 @@ def generate(
         background_style=background_style,
         ear_detail=ear_detail,
         forehead_detail=forehead_detail,
+        has_whiskers=has_whiskers,
     )
 
     config = AvatarConfig(
@@ -225,6 +264,7 @@ def generate(
         has_hat=has_hat,
         has_glasses=has_glasses,
         has_badge=has_badge,
+        cat=cat,
     )
 
     return RobotAvatar(

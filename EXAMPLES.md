@@ -8,6 +8,9 @@ A collection of example robot avatars generated with `bot-face`, demonstrating 4
 
 | Preview | Seed | Palette | Filter / Style | Description |
 |---|---|---|---|---|
+| <img src="docs/examples/cat_bot_neko.png" width="128" /> | `cat_bot_neko` | `bubblegum` | `--cat` (Radius: 32px) | Sweet bubblegum cat robot with whiskers, cat mouth `:3`, party hat, and bell collar. |
+| <img src="docs/examples/calico_bot.png" width="128" /> | `calico_bot` | `caramel_latte` | `--cat` (Circle Clip) | Circular caramel calico robot cat with glowing `^ ^` eyes, cute fangs, heart blush, and bell collar. |
+| <img src="docs/examples/cyber_cat_9000.png" width="128" /> | `cyber_cat_9000` | `cyberpunk_2077` | `--cat` (`8bit`, Radius: 16px) | Cyberpunk 2077 neon yellow cat bot with whiskers, crown, and 8-bit retro pixel filter. |
 | <img src="docs/examples/alice_at_example_com.png" width="128" /> | `alice@example.com` | `bubblegum` | None (Radius: 32px) | Sweet Bubblegum robot with sparkling kawaii eyes, blushing cheeks, rounded corners, and crisp dark outlines. |
 | <img src="docs/examples/cyber_samurai.png" width="128" /> | `cyber_samurai` | `cyberpunk_2077` | `8bit` (Radius: 16px) | High-voltage electric neon yellow and magenta with chunky 8-bit retro pixel filter. |
 | <img src="docs/examples/cosmic_nebula_bot.png" width="128" /> | `cosmic_nebula_bot` | `galaxy_nebula` | None (Radius: 32px) | Cosmic deep indigo and stellar purple galaxy robot with glowing stars and crystal clear silhouettes. |
@@ -39,7 +42,18 @@ A collection of example robot avatars generated with `bot-face`, demonstrating 4
 
 ## 💻 How to Reproduce Each Example
 
-### 1. Classic Account Avatar (`alice@example.com`)
+### 1. Cute Cat Robot Neko (`cat_bot_neko`)
+```bash
+bf generate "cat_bot_neko" --cat --palette bubblegum --radius 32 --output neko.png
+```
+```python
+import bot_face
+
+avatar = bot_face.generate(seed="cat_bot_neko", cat=True, palette="bubblegum", corner_radius=32)
+avatar.save("neko.png")
+```
+
+### 2. Classic Account Avatar (`alice@example.com`)
 ```bash
 bf generate "alice@example.com" --palette bubblegum --radius 32 --output alice.png
 ```

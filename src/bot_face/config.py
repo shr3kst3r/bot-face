@@ -49,6 +49,10 @@ class AvatarConfig(BaseModel):
         default=None,
         description="Force chest badge presence (True/False). If None, sampled from seed.",
     )
+    cat: bool | None = Field(
+        default=None,
+        description="Force cute cat robot features (cat ears, whiskers, cat mouth, bell collar).",
+    )
 
     @field_validator("corner_radius")
     @classmethod
