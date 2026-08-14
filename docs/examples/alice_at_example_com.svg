@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <clipPath id="avatar-clip">
+      <rect x="0" y="0" width="256" height="256" rx="32" ry="32" />
+    </clipPath>
+    <linearGradient id="bg-grad-linear" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD6E8" /><stop offset="100%" stop-color="#FFB3D9" /></linearGradient>
+    <radialGradient id="bg-grad-radial" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FFB3D9" /><stop offset="100%" stop-color="#FFD6E8" /></radialGradient>
+    <linearGradient id="chassis-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FF6B9D" /><stop offset="100%" stop-color="#E04A7B" /></linearGradient>
+    <linearGradient id="metal-shine" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" /><stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" /><stop offset="100%" stop-color="#000000" stop-opacity="0.15" /></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="256" height="256" fill="url(#bg-grad-linear)" />
+  <g clip-path="url(#avatar-clip)">
+  <!-- Antenna / Top Gadget -->
+  <rect x="125" y="24" width="6" height="32" rx="3" fill="#E04A7B" />  <circle cx="128" cy="22" r="12" fill="#FFE66D" />  <circle cx="125" cy="18" r="3.5" fill="#FFFFFF" />
+  <!-- Neck -->
+  <rect x="108" y="165" width="40" height="30" rx="4" fill="#E04A7B" />
+  <line x1="108" y1="172" x2="148" y2="172" stroke="#FFE66D" stroke-width="3" />
+  <line x1="108" y1="182" x2="148" y2="182" stroke="#FFE66D" stroke-width="3" />
+  <!-- Torso -->
+  <path d="M 56 256 L 68 198 Q 72 190 84 190 L 172 190 Q 184 190 188 198 L 200 256 Z" fill="url(#chassis-grad)" />
+  <path d="M 84 190 L 172 190 L 166 200 L 90 200 Z" fill="#E04A7B" opacity="0.6" />
+  <!-- Chest Badge -->
+  <circle cx="128" cy="224" r="16" fill="#3D3B4F" />  <circle cx="128" cy="224" r="10" stroke="#FFE66D" stroke-width="3" fill="none" />  <line x1="128" y1="216" x2="128" y2="223" stroke="#FFE66D" stroke-width="3" stroke-linecap="round" />
+  <!-- Ears / Side Attachments -->
+  <rect x="40" y="102" width="10" height="26" rx="3" fill="#E04A7B" />  <rect x="206" y="102" width="10" height="26" rx="3" fill="#E04A7B" />
+  <!-- Robot Bear Ears -->
+  <circle cx="70" cy="58" r="22" fill="#FF6B9D" />  <circle cx="70" cy="58" r="13" fill="#FFE66D" />  <circle cx="186" cy="58" r="22" fill="#FF6B9D" />  <circle cx="186" cy="58" r="13" fill="#FFE66D" />
+  <!-- Head Base -->
+  <rect x="48" y="54" width="160" height="124" rx="24" ry="24" fill="url(#chassis-grad)" stroke="#E04A7B" stroke-width="4" />
+  <circle cx="68" cy="68" r="3.5" fill="#3D3B4F" />  <circle cx="128" cy="64" r="3.5" fill="#3D3B4F" />  <circle cx="188" cy="68" r="3.5" fill="#3D3B4F" />
+  <!-- Faceplate Screen -->
+  <rect x="66" y="74" width="124" height="88" rx="18" ry="18" fill="#FFFFFF" stroke="#E04A7B" stroke-width="3" />
+  <!-- Eyes / Eyewear -->
+  <polygon points="76,96 122,96 118,120 84,120" fill="#3D3B4F" />  <polygon points="134,96 180,96 172,120 138,120" fill="#3D3B4F" />  <line x1="120" y1="98" x2="136" y2="98" stroke="#3D3B4F" stroke-width="4" />  <line x1="58" y1="98" x2="76" y2="98" stroke="#3D3B4F" stroke-width="3" />  <line x1="180" y1="98" x2="198" y2="98" stroke="#3D3B4F" stroke-width="3" />  <line x1="82" y1="102" x2="114" y2="102" stroke="#FFFFFF" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />  <line x1="140" y1="102" x2="172" y2="102" stroke="#FFFFFF" stroke-width="2.5" opacity="0.6" stroke-linecap="round" />
+  <!-- Cheeks -->
+  <ellipse cx="80" cy="134" rx="9" ry="6" fill="#FF85A2" opacity="0.85" />  <ellipse cx="176" cy="134" rx="9" ry="6" fill="#FF85A2" opacity="0.85" />
+  <!-- Mouth / Expression -->
+  <rect x="108" y="132" width="40" height="18" rx="4" fill="#3D3B4F" />  <line x1="114" y1="137" x2="142" y2="137" stroke="#FFE66D" stroke-width="2.5" stroke-linecap="round" />  <line x1="114" y1="141" x2="142" y2="141" stroke="#FFE66D" stroke-width="2.5" stroke-linecap="round" />  <line x1="114" y1="145" x2="142" y2="145" stroke="#FFE66D" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+</svg>
