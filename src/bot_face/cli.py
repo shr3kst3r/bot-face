@@ -11,6 +11,7 @@ from rich.table import Table
 
 import bot_face
 from bot_face.colors import PALETTES, get_palette, list_palettes
+from bot_face.filters import AVAILABLE_FILTERS, list_filters
 from bot_face.generator import generate
 
 app = typer.Typer(
@@ -105,6 +106,14 @@ def generate_cmd(
             help="Color palette name (run 'bot-face palettes' to list).",
         ),
     ] = None,
+    filter_opt: Annotated[
+        str | None,
+        typer.Option(
+            "--filter",
+            "-F",
+            help="Retro style or filter: '8bit', '16bit', 'gameboy', 'crt', etc.",
+        ),
+    ] = None,
     hat: Annotated[
         bool | None,
         typer.Option(
@@ -142,12 +151,20 @@ def generate_cmd(
             err_console.print(f"[bold red]Error:[/bold red] {e}")
             raise typer.Exit(code=1) from e
 
+    if filter_opt and filter_opt.lower() not in AVAILABLE_FILTERS:
+        valid = ", ".join(list_filters())
+        err_console.print(
+            f"[bold red]Error:[/bold red] Unknown filter '{filter_opt}'. Available: {valid}"
+        )
+        raise typer.Exit(code=1)
+
     avatar = generate(
         seed=seed,
         size=size,
         corner_radius=radius,
         circle=circle,
         palette=palette,
+        filter=filter_opt,
         has_hat=hat,
         has_glasses=glasses,
         has_badge=badge,
@@ -168,9 +185,10 @@ def generate_cmd(
     if output is not None:
         saved_path = avatar.save(output, format=format_opt)
         pal_name = avatar.palette.name
+        f_info = f", filter: {filter_opt}" if filter_opt else ""
         console.print(
             f"[green]✓[/green] Saved avatar for seed [bold cyan]'{avatar.seed}'[/bold cyan] "
-            f"to [bold]{saved_path}[/bold] ([yellow]{pal_name}[/yellow], {size}x{size}px)"
+            f"to [bold]{saved_path}[/bold] ([yellow]{pal_name}[/yellow]{f_info}, {size}x{size}px)"
         )
         return
 
@@ -184,9 +202,10 @@ def generate_cmd(
     default_out = Path(f"bot_face_{safe_seed}.png")
     saved_path = avatar.save(default_out, format="png")
     pal_name = avatar.palette.name
+    f_info = f", filter: {filter_opt}" if filter_opt else ""
     console.print(
         f"[green]✓[/green] Generated avatar for seed [bold cyan]'{avatar.seed}'[/bold cyan] "
-        f"-> [bold]{saved_path}[/bold] ([yellow]{pal_name}[/yellow], {size}x{size}px)"
+        f"-> [bold]{saved_path}[/bold] ([yellow]{pal_name}[/yellow]{f_info}, {size}x{size}px)"
     )
 
 
@@ -249,6 +268,14 @@ def batch_cmd(
             help="Color palette name (if omitted, chosen deterministically per seed).",
         ),
     ] = None,
+    filter_opt: Annotated[
+        str | None,
+        typer.Option(
+            "--filter",
+            "-F",
+            help="Retro style or filter: '8bit', '16bit', 'gameboy', 'crt', etc.",
+        ),
+    ] = None,
 ) -> None:
     """Generate multiple avatars in batch."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -266,6 +293,7 @@ def batch_cmd(
             corner_radius=radius,
             circle=circle,
             palette=palette,
+            filter=filter_opt,
         )
         safe_name = "".join(c if c.isalnum() or c in "-_" else "_" for c in s)[:48]
         out_file = output_dir / f"{safe_name}.{ext}"
@@ -292,9 +320,17 @@ def preview_cmd(
             help="Explicit color palette.",
         ),
     ] = None,
+    filter_opt: Annotated[
+        str | None,
+        typer.Option(
+            "--filter",
+            "-F",
+            help="Retro style or filter to apply.",
+        ),
+    ] = None,
 ) -> None:
     """Inspect the generated features and colors for a given seed."""
-    avatar = generate(seed=seed, palette=palette)
+    avatar = generate(seed=seed, palette=palette, filter=filter_opt)
     a = avatar.anatomy
     p = avatar.palette
 
@@ -303,6 +339,8 @@ def preview_cmd(
     table.add_column("Value", style="white")
 
     table.add_row("Palette", f"{p.name} — {p.description}")
+    if filter_opt:
+        table.add_row("Filter", filter_opt)
     table.add_row("Head Style", a.head_style.replace("_", " ").title())
     table.add_row("Faceplate", a.faceplate_style.replace("_", " ").title())
     table.add_row("Eyes / Eyewear", a.eye_style.replace("_", " ").title())
@@ -331,6 +369,32 @@ def palettes_cmd() -> None:
         table.add_row(name, pal.description, swatches)
 
     console.print(table)
+
+
+@app.command(name="filters", help="List all available retro styles and filters.")
+def filters_cmd() -> None:
+    """List available retro styles (8-bit, 16-bit, gameboy, CRT, etc.)."""
+    table = Table(title="🕹️ Bot-Face Styles & Filters", header_style="bold magenta")
+    table.add_column("Filter", style="bold cyan", width=18)
+    table.add_column("Description", style="white")
+
+    for name in list_filters():
+        table.add_row(name, AVAILABLE_FILTERS[name])
+
+    console.print(table)
+
+
+@app.command(name="__complete", hidden=True)
+def complete_cmd(
+    target: Annotated[str, typer.Argument(help="Completion target, e.g. 'spg'.")],
+    index: Annotated[int, typer.Argument(help="0-indexed cursor position in original words.")],
+    words: Annotated[list[str], typer.Argument(help="Words in the command line.")],
+) -> None:
+    """Internal completion dispatcher invoked by spg completion hooks."""
+    if target == "spg":
+        from bot_face.completion_spg import run as spg_run
+
+        spg_run(index, words)
 
 
 def main() -> None:

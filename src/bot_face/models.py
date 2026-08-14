@@ -52,9 +52,11 @@ class RobotAvatar(BaseModel):
 
     def to_image(self) -> Image.Image:
         """Render the avatar to a Pillow RGBA Image."""
+        from bot_face.filters import apply_filter
         from bot_face.renderers.raster import render_pillow_image
 
-        return render_pillow_image(self)
+        raw_img = render_pillow_image(self)
+        return apply_filter(raw_img, self.config.filter)
 
     def to_bytes(self, format: str = "png") -> bytes:
         """Render the avatar to encoded image bytes (png, svg, webp, jpeg)."""

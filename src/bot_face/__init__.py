@@ -6,6 +6,7 @@ from typing import Any
 
 from bot_face.colors import PALETTES, ColorPalette, get_palette, list_palettes
 from bot_face.config import AvatarConfig
+from bot_face.filters import AVAILABLE_FILTERS, apply_filter, list_filters
 from bot_face.generator import generate
 from bot_face.models import RobotAvatar
 
@@ -18,6 +19,7 @@ def render_svg(
     corner_radius: int = 0,
     circle: bool = False,
     palette: str | None = None,
+    filter: str | None = None,
     has_hat: bool | None = None,
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
@@ -29,6 +31,7 @@ def render_svg(
         corner_radius=corner_radius,
         circle=circle,
         palette=palette,
+        filter=filter,
         has_hat=has_hat,
         has_glasses=has_glasses,
         has_badge=has_badge,
@@ -42,6 +45,7 @@ def render_png(
     corner_radius: int = 0,
     circle: bool = False,
     palette: str | None = None,
+    filter: str | None = None,
     has_hat: bool | None = None,
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
@@ -53,6 +57,7 @@ def render_png(
         corner_radius=corner_radius,
         circle=circle,
         palette=palette,
+        filter=filter,
         has_hat=has_hat,
         has_glasses=has_glasses,
         has_badge=has_badge,
@@ -61,13 +66,16 @@ def render_png(
 
 
 __all__ = [
+    "AVAILABLE_FILTERS",
     "PALETTES",
     "AvatarConfig",
     "ColorPalette",
     "RobotAvatar",
     "__version__",
+    "apply_filter",
     "generate",
     "get_palette",
+    "list_filters",
     "list_palettes",
     "render_png",
     "render_svg",

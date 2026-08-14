@@ -11,6 +11,16 @@ A lightweight, high-performance Python library and CLI for generating bright, cu
 ## ✨ Features
 
 - **🎨 Bright & Cheerful Aesthetics**: 12 curated, vibrant color themes (Bubblegum, Cyber Mint, Sunny Lemon, Electric Berry, Neon Coral, and more).
+- **🕹️ Retro Looks & Filters**:
+  - `8bit`: Chunky retro arcade / NES pixel art with 16-color quantization.
+  - `16bit`: Smooth 16-bit SNES / Genesis pixel art with dithering.
+  - `gameboy`: Classic 4-shade olive green Nintendo Game Boy DMG-01 LCD screen.
+  - `crt`: Retro arcade CRT television monitor with horizontal scanlines and bloom.
+  - `blueprint`: Architectural cyan & navy technical blueprint.
+  - `monochrome`: High-contrast black & white grayscale.
+  - `sepia`: Warm vintage photograph look.
+  - `dither`: Floyd-Steinberg 1-bit dot matrix dither.
+  - `neon_glow`: Cyberpunk neon bloom and saturation boost.
 - **🎲 Deterministic & Random Seeding**: Pass any seed (`str`, `int`, `bytes`) to reproduce the exact same avatar every time (ideal for usernames, emails, and UUIDs) or generate random avatars on demand.
 - **🔲 Configurable Corner Clipping**: Sharp square, smooth rounded rectangles (`corner_radius=...`), or full circular profile clips (`circle=True`).
 - **🎩 Expressive Robot Anatomy**:
@@ -57,6 +67,7 @@ avatar = bot_face.generate(
     corner_radius=24,  # 0 for square, >0 for rounded
     circle=False,  # Set True for full circle profile image
     palette="cyber_mint",  # Optional explicit palette (or None for seeded choice)
+    filter="8bit",  # Retro style: '8bit', '16bit', 'gameboy', 'crt', 'blueprint', etc.
     has_hat=True,  # Optional override for hat presence
     has_glasses=False,  # Optional override for eyewear
     has_badge=True,  # Optional override for chest badge
@@ -81,6 +92,11 @@ data_uri = avatar.to_data_uri("svg")  # "data:image/svg+xml;base64,..."
 bf generate "alice@example.com" --output avatar.png --radius 32
 bf generate "bob@example.com" --output avatar.svg --circle
 
+# Apply retro 8-bit or 16-bit pixel filters
+bf generate "retro_hero" --output hero_8bit.png --filter 8bit
+bf generate "retro_hero" --output hero_gameboy.png --filter gameboy
+bf generate "retro_hero" --output hero_crt.png --filter crt
+
 # Random generation
 bf generate --random --output random_bot.png
 
@@ -91,13 +107,14 @@ bf generate "charlie" --format svg > bot.svg
 bf generate "dave" --data-uri
 
 # Batch generate avatars for multiple users
-bf batch alice bob charlie dave --output-dir ./avatars --format png --radius 24
+bf batch alice bob charlie dave --output-dir ./avatars --format png --filter 8bit
 
-# Inspect robot anatomy in the terminal
-bf preview "octocat"
+# Inspect robot anatomy and filter in the terminal
+bf preview "octocat" --filter 8bit
 
-# List available color palettes
+# List available color palettes & filters
 bf palettes
+bf filters
 ```
 
 ---

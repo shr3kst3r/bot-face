@@ -33,6 +33,10 @@ class AvatarConfig(BaseModel):
         default=None,
         description="Name of color palette to use. If None, chosen from seed.",
     )
+    filter: str | None = Field(
+        default=None,
+        description="Optional retro style or filter: '8bit', '16bit', 'gameboy', 'crt', etc.",
+    )
     has_hat: bool | None = Field(
         default=None,
         description="Force hat presence (True/False). If None, sampled from seed.",

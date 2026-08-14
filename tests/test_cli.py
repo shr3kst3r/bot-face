@@ -30,11 +30,40 @@ def test_cli_palettes() -> None:
     assert "cyber_mint" in result.output
 
 
+def test_cli_filters() -> None:
+    result = runner.invoke(app, ["filters"])
+    assert result.exit_code == 0
+    assert "8bit" in result.output
+    assert "gameboy" in result.output
+
+
 def test_cli_preview() -> None:
-    result = runner.invoke(app, ["preview", "super_robot"])
+    result = runner.invoke(app, ["preview", "super_robot", "--filter", "8bit"])
     assert result.exit_code == 0
     assert "Bot Face Anatomy" in result.output
     assert "super_robot" in result.output
+    assert "8bit" in result.output
+
+
+def test_cli_generate_with_filter(tmp_path: Path) -> None:
+    out_file = tmp_path / "bot_8bit.png"
+    result = runner.invoke(
+        app,
+        ["generate", "my_seed", "--output", str(out_file), "--filter", "8bit"],
+    )
+    assert result.exit_code == 0
+    assert out_file.exists()
+
+
+def test_cli_generate_invalid_filter() -> None:
+    result = runner.invoke(app, ["generate", "seed", "--filter", "bad_filter"])
+    assert result.exit_code == 1
+    assert "Unknown filter" in result.output
+
+
+def test_cli_completion_spg() -> None:
+    result = runner.invoke(app, ["__complete", "spg", "1", "generate"])
+    assert result.exit_code == 0
 
 
 def test_cli_generate_file(tmp_path: Path) -> None:
