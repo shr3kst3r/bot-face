@@ -25,6 +25,18 @@ GAMEBOY_PALETTE = [
 ]
 
 
+def _safe_rgba(val: object) -> tuple[int, int, int, int]:
+    """Safely convert any PIL getpixel return value into an RGBA 4-tuple."""
+    if isinstance(val, (tuple, list)):
+        r = int(val[0])
+        g = int(val[1]) if len(val) > 1 else r
+        b = int(val[2]) if len(val) > 2 else r
+        a = int(val[3]) if len(val) > 3 else 255
+        return (r, g, b, a)
+    num = int(val) if isinstance(val, (int, float)) else 0
+    return (num, num, num, 255)
+
+
 def list_filters() -> list[str]:
     """Return a sorted list of available filter names."""
     return sorted(AVAILABLE_FILTERS.keys())
@@ -98,49 +110,81 @@ def apply_16bit_filter(img: Image.Image) -> Image.Image:
 def apply_gameboy_filter(img: Image.Image) -> Image.Image:
     """Transform image into authentic 4-color Game Boy LCD pixel art with bold dark outlines."""
     orig_w, orig_h = img.size
-    grid_size = 48
+    grid_size = 64
+    small_raw = img.resize((grid_size, grid_size), Image.Resampling.BILINEAR)
 
-    rgba = img.convert("RGBA")
-    r, g, b, a = rgba.split()
-    rgb = Image.merge("RGB", (r, g, b))
+    # Detect background pixels by sampling the four corners
+    c00 = _safe_rgba(small_raw.getpixel((0, 0)))
+    c10 = _safe_rgba(small_raw.getpixel((grid_size - 1, 0)))
+    c01 = _safe_rgba(small_raw.getpixel((0, grid_size - 1)))
+    c11 = _safe_rgba(small_raw.getpixel((grid_size - 1, grid_size - 1)))
+    corners = [c00, c10, c01, c11]
 
-    gray = ImageOps.grayscale(rgb)
-
-    # 1. Edge & dark line detection to preserve silhouettes against the green background
-    edges = gray.filter(ImageFilter.FIND_EDGES)
-    edge_mask = edges.point(lambda p: 255 if p > 35 else 0, mode="1")
-    small_edges = edge_mask.resize((grid_size, grid_size), Image.Resampling.NEAREST)
-
-    dark_mask = gray.point(lambda p: 255 if p < 75 else 0, mode="1")
-    small_dark = dark_mask.resize((grid_size, grid_size), Image.Resampling.NEAREST)
-
-    # 2. Autocontrast for balanced dynamic range across 4 Game Boy shades
-    auto_gray = ImageOps.autocontrast(gray, cutoff=2)
-    small_gray = auto_gray.resize((grid_size, grid_size), Image.Resampling.BILINEAR)
-
-    # 3. 4-color palette quantization with Floyd-Steinberg dithering
-    pal_img = Image.new("P", (1, 1))
-    flat_pal: list[int] = []
-    for col in GAMEBOY_PALETTE:
-        flat_pal.extend(col)
-    flat_pal.extend([0] * (768 - len(flat_pal)))
-    pal_img.putpalette(flat_pal)
-
-    small_rgb = small_gray.convert("RGB")
-    quantized = small_rgb.quantize(palette=pal_img, dither=Image.Dither.FLOYDSTEINBERG)
-    out_rgb = quantized.convert("RGB")
-
-    # 4. Enforce darkest Game Boy green (#0F380F) on outlines so the bot pops off the background
+    is_bg = [[False] * grid_size for _ in range(grid_size)]
     for y in range(grid_size):
         for x in range(grid_size):
-            if small_edges.getpixel((x, y)) or small_dark.getpixel((x, y)):
-                out_rgb.putpixel((x, y), GAMEBOY_PALETTE[0])
+            p = _safe_rgba(small_raw.getpixel((x, y)))
+            if p[3] < 128:
+                is_bg[y][x] = True
+            else:
+                for c in corners:
+                    dr = abs(p[0] - c[0])
+                    dg = abs(p[1] - c[1])
+                    db = abs(p[2] - c[2])
+                    if dr + dg + db < 35:
+                        is_bg[y][x] = True
+                        break
 
-    pixelated_rgb = out_rgb.resize((orig_w, orig_h), Image.Resampling.NEAREST)
+    # Determine character silhouette boundary pixels
+    is_border = [[False] * grid_size for _ in range(grid_size)]
+    for y in range(grid_size):
+        for x in range(grid_size):
+            if not is_bg[y][x]:
+                for dy, dx in [
+                    (-1, 0),
+                    (1, 0),
+                    (0, -1),
+                    (0, 1),
+                    (-1, -1),
+                    (-1, 1),
+                    (1, -1),
+                    (1, 1),
+                ]:
+                    ny, nx = y + dy, x + dx
+                    if 0 <= ny < grid_size and 0 <= nx < grid_size and is_bg[ny][nx]:
+                        is_border[y][x] = True
+                        break
+
+    gray = ImageOps.grayscale(small_raw)
+    char_gray = ImageOps.autocontrast(gray, cutoff=2)
+
+    out_img = Image.new("RGB", (grid_size, grid_size))
+    for y in range(grid_size):
+        for x in range(grid_size):
+            if is_bg[y][x]:
+                # Light green Game Boy LCD screen background (shade 3)
+                out_img.putpixel((x, y), GAMEBOY_PALETTE[3])
+            elif is_border[y][x]:
+                # Deepest dark green silhouette outline (shade 0)
+                out_img.putpixel((x, y), GAMEBOY_PALETTE[0])
+            else:
+                raw_g = char_gray.getpixel((x, y))
+                g = int(raw_g) if isinstance(raw_g, (int, float)) else 0
+                if g < 60:
+                    out_img.putpixel((x, y), GAMEBOY_PALETTE[0])
+                elif g < 120:
+                    out_img.putpixel((x, y), GAMEBOY_PALETTE[1])
+                elif g < 185:
+                    out_img.putpixel((x, y), GAMEBOY_PALETTE[2])
+                else:
+                    out_img.putpixel((x, y), GAMEBOY_PALETTE[3])
+
+    out = out_img.resize((orig_w, orig_h), Image.Resampling.NEAREST)
+    rgba = img.convert("RGBA")
+    _, _, _, a = rgba.split()
     small_a = a.resize((grid_size, grid_size), Image.Resampling.NEAREST)
     pixelated_a = small_a.resize((orig_w, orig_h), Image.Resampling.NEAREST)
-
-    pr, pg, pb = pixelated_rgb.split()
+    pr, pg, pb = out.split()
     return Image.merge("RGBA", (pr, pg, pb, pixelated_a))
 
 
