@@ -1,0 +1,27 @@
+[project]
+name = "bot-face"
+
+[commands.bf]
+run = "uv run bf"
+description = "bot-face: cute robot avatar generator library and CLI"
+complete_hook = "uv run bf __complete spg"
+
+[commands.bot-face]
+run = "uv run bot-face"
+description = "bot-face: cute robot avatar generator library and CLI"
+complete_hook = "uv run bf __complete spg"
+
+[commands.bf-verify]
+run = "just verify"
+description = "Run full CI gate: ruff check + ruff format --check + ty + pytest."
+
+[commands.bf-format]
+run = "just format"
+description = "Auto-format the codebase with ruff."
+
+[commands.bf-test]
+run = "uv run pytest -q"
+description = "Run pytest test suite. Optional path args are passed through."
+args = [
+    { name = "path", description = "test file or directory", type = "files" },
+]

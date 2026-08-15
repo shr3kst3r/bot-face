@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <clipPath id="avatar-clip">
+      <rect x="0" y="0" width="256" height="256" rx="16" ry="16" />
+    </clipPath>
+    <linearGradient id="bg-grad-linear" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FEF3C7" /><stop offset="100%" stop-color="#FDE68A" /></linearGradient>
+    <radialGradient id="bg-grad-radial" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FDE68A" /><stop offset="100%" stop-color="#FEF3C7" /></radialGradient>
+    <linearGradient id="chassis-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FB923C" /><stop offset="100%" stop-color="#EA580C" /></linearGradient>
+    <linearGradient id="metal-shine" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" /><stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" /><stop offset="100%" stop-color="#000000" stop-opacity="0.15" /></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="256" height="256" fill="url(#bg-grad-linear)" />
+  <g clip-path="url(#avatar-clip)">
+  <!-- Antenna / Top Gadget -->
+  <polygon points="80,56 72,22 96,44" fill="#EF4444" stroke="#2B1305" stroke-width="3.5" stroke-linejoin="round" />  <polygon points="176,56 184,22 160,44" fill="#EF4444" stroke="#2B1305" stroke-width="3.5" stroke-linejoin="round" />
+  <!-- Neck -->
+  <rect x="104" y="168" width="48" height="26" rx="5" fill="#EA580C" stroke="#2B1305" stroke-width="3.5" />
+  <circle cx="112" cy="181" r="3" fill="#2B1305" />  <circle cx="128" cy="181" r="3" fill="#2B1305" />  <circle cx="144" cy="181" r="3" fill="#2B1305" />
+  <!-- Torso -->
+  <path d="M 52 256 L 66 198 Q 72 188 84 188 L 172 188 Q 184 188 190 198 L 204 256 Z" fill="url(#chassis-grad)" stroke="#2B1305" stroke-width="5" />
+  <path d="M 84 188 L 172 188 L 166 198 L 90 198 Z" fill="#EA580C" opacity="0.7" />
+  <!-- Ears / Side Attachments -->
+  <rect x="38" y="102" width="12" height="26" rx="3" fill="#EA580C" stroke="#2B1305" stroke-width="3" />  <rect x="206" y="102" width="12" height="26" rx="3" fill="#EA580C" stroke="#2B1305" stroke-width="3" />
+  <!-- Head Base -->
+  <polygon points="80,50 176,50 208,114 176,176 80,176 48,114" fill="url(#chassis-grad)" stroke="#2B1305" stroke-width="5" stroke-linejoin="round" />
+  <!-- Faceplate Screen -->
+  <rect x="66" y="74" width="124" height="88" rx="18" ry="18" fill="#1E1B4B" stroke="#2B1305" stroke-width="3" />
+  <!-- Eyes / Eyewear -->
+  <circle cx="98" cy="106" r="16" fill="#2B1305" />  <circle cx="98" cy="106" r="13" fill="#38BDF8" />  <circle cx="98" cy="106" r="8" fill="none" stroke="#2B1305" stroke-width="2.5" />  <circle cx="98" cy="106" r="4" fill="none" stroke="#2B1305" stroke-width="2" />
+  <circle cx="158" cy="106" r="16" fill="#2B1305" />  <circle cx="158" cy="106" r="13" fill="#38BDF8" />  <circle cx="158" cy="106" r="8" fill="none" stroke="#2B1305" stroke-width="2.5" />  <circle cx="158" cy="106" r="4" fill="none" stroke="#2B1305" stroke-width="2" />
+  <!-- Cheeks -->
+  <path d="M 80 138 C 80 138, 73 133, 73 129 C 73 126, 75 125, 77.5 125 C 79 125, 80 126.5, 80 126.5 C 80 126.5, 81 125, 82.5 125 C 85 125, 87 126, 87 129 C 87 133, 80 138, 80 138 Z" fill="#F43F5E" />  <path d="M 176 138 C 176 138, 169 133, 169 129 C 169 126, 171 125, 173.5 125 C 175 125, 176 126.5, 176 126.5 C 176 126.5, 177 125, 178.5 125 C 181 125, 183 126, 183 129 C 183 133, 176 138, 176 138 Z" fill="#F43F5E" />
+  <!-- Mouth / Expression -->
+  <path d="M 110 134 Q 128 134 146 134 Q 146 154 128 154 Q 110 154 110 134 Z" fill="#2B1305" stroke="#2B1305" stroke-width="3" />  <path d="M 118 144 Q 128 138 138 144 Q 134 152 128 152 Q 122 152 118 144 Z" fill="#FF85A2" />
+  <!-- Hat -->
+  <polygon points="128,14 100,60 156,60" fill="#A855F7" stroke="#2B1305" stroke-width="4" stroke-linejoin="round" />  <polygon points="128,14 116,60 140,60" fill="#EA580C" />  <circle cx="128" cy="14" r="8" fill="#38BDF8" stroke="#2B1305" stroke-width="3" />  <ellipse cx="128" cy="60" rx="28" ry="6" fill="#EA580C" stroke="#2B1305" stroke-width="3" />
+  </g>
+</svg>

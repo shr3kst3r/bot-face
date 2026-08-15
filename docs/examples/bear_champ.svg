@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <clipPath id="avatar-clip">
+      <circle cx="128" cy="128" r="128" />
+    </clipPath>
+    <linearGradient id="bg-grad-linear" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFBEB" /><stop offset="100%" stop-color="#FEF3C7" /></linearGradient>
+    <radialGradient id="bg-grad-radial" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#FEF3C7" /><stop offset="100%" stop-color="#FFFBEB" /></radialGradient>
+    <linearGradient id="chassis-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#F59E0B" /><stop offset="100%" stop-color="#D97706" /></linearGradient>
+    <linearGradient id="metal-shine" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" /><stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" /><stop offset="100%" stop-color="#000000" stop-opacity="0.15" /></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="256" height="256" fill="#FFFBEB" />
+  <g clip-path="url(#avatar-clip)">
+  <!-- Neck -->
+  <rect x="108" y="165" width="40" height="30" rx="4" fill="#D97706" stroke="#2E1503" stroke-width="3.5" />
+  <line x1="108" y1="173" x2="148" y2="173" stroke="#EF4444" stroke-width="3" />
+  <line x1="108" y1="183" x2="148" y2="183" stroke="#EF4444" stroke-width="3" />
+  <!-- Torso -->
+  <path d="M 52 256 L 66 198 Q 72 188 84 188 L 172 188 Q 184 188 190 198 L 204 256 Z" fill="url(#chassis-grad)" stroke="#2E1503" stroke-width="5" />
+  <path d="M 84 188 L 172 188 L 166 198 L 90 198 Z" fill="#D97706" opacity="0.7" />
+  <ellipse cx="128" cy="192" rx="34" ry="6" fill="#2E1503" opacity="0.22" />
+  <!-- Chest Badge -->
+  <circle cx="128" cy="224" r="16" fill="#451A03" stroke="#2E1503" stroke-width="2.5" />  <ellipse cx="128" cy="227" rx="6.5" ry="5" fill="#EF4444" />  <circle cx="122" cy="218" r="2.5" fill="#EF4444" />  <circle cx="126" cy="216" r="2.5" fill="#EF4444" />  <circle cx="130" cy="216" r="2.5" fill="#EF4444" />  <circle cx="134" cy="218" r="2.5" fill="#EF4444" />
+  <!-- Ears / Side Attachments -->
+  <rect x="36" y="100" width="14" height="30" rx="3" fill="#D97706" stroke="#2E1503" stroke-width="3" />  <line x1="40" y1="107" x2="46" y2="107" stroke="#2E1503" stroke-width="2.5" />  <line x1="40" y1="115" x2="46" y2="115" stroke="#2E1503" stroke-width="2.5" />  <line x1="40" y1="123" x2="46" y2="123" stroke="#2E1503" stroke-width="2.5" />  <rect x="206" y="100" width="14" height="30" rx="3" fill="#D97706" stroke="#2E1503" stroke-width="3" />  <line x1="210" y1="107" x2="216" y2="107" stroke="#2E1503" stroke-width="2.5" />  <line x1="210" y1="115" x2="216" y2="115" stroke="#2E1503" stroke-width="2.5" />  <line x1="210" y1="123" x2="216" y2="123" stroke="#2E1503" stroke-width="2.5" />
+  <!-- Robot Bear Ears -->
+  <circle cx="70" cy="56" r="23" fill="#F59E0B" stroke="#2E1503" stroke-width="4" />  <circle cx="70" cy="56" r="13" fill="#EF4444" />  <circle cx="186" cy="56" r="23" fill="#F59E0B" stroke="#2E1503" stroke-width="4" />  <circle cx="186" cy="56" r="13" fill="#EF4444" />
+  <!-- Head Base -->
+  <rect x="48" y="54" width="160" height="124" rx="26" ry="26" fill="url(#chassis-grad)" stroke="#2E1503" stroke-width="5" />
+  <!-- Head Highlights & Shadows -->
+  <path d="M 64 62 Q 128 54 186 62 Q 128 67 64 62 Z" fill="#FFFFFF" opacity="0.35" />
+  <path d="M 194 80 L 194 156 Q 186 170 170 172 L 170 166 Q 186 164 186 80 Z" fill="#2E1503" opacity="0.18" />
+  <!-- Faceplate Screen -->
+  <rect x="66" y="74" width="124" height="88" rx="18" ry="18" fill="#451A03" stroke="#EF4444" stroke-width="5" />
+  <!-- Glass Sheen -->
+  <polygon points="74,80 114,80 88,154 74,154" fill="#FFFFFF" opacity="0.12" />
+  <!-- Eyes / Eyewear -->
+  <path d="M 86 114 L 98 98 L 110 114" fill="none" stroke="#2E1503" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />  <path d="M 86 114 L 98 98 L 110 114" fill="none" stroke="#FDE047" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />  <path d="M 146 114 L 158 98 L 170 114" fill="none" stroke="#2E1503" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />  <path d="M 146 114 L 158 98 L 170 114" fill="none" stroke="#FDE047" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Cheeks -->
+  <line x1="74" y1="130" x2="78" y2="138" stroke="#FB923C" stroke-width="3" stroke-linecap="round" />  <line x1="80" y1="130" x2="84" y2="138" stroke="#FB923C" stroke-width="3" stroke-linecap="round" />  <line x1="86" y1="130" x2="90" y2="138" stroke="#FB923C" stroke-width="3" stroke-linecap="round" />  <line x1="166" y1="130" x2="170" y2="138" stroke="#FB923C" stroke-width="3" stroke-linecap="round" />  <line x1="172" y1="130" x2="176" y2="138" stroke="#FB923C" stroke-width="3" stroke-linecap="round" />  <line x1="178" y1="130" x2="182" y2="138" stroke="#FB923C" stroke-width="3" stroke-linecap="round" />
+  <!-- Mouth / Expression -->
+  <path d="M 108 136 Q 128 154 148 136" fill="none" stroke="#2E1503" stroke-width="7" stroke-linecap="round" />  <path d="M 108 136 Q 128 154 148 136" fill="none" stroke="#FDE047" stroke-width="4.5" stroke-linecap="round" />  <circle cx="108" cy="136" r="3" fill="#2E1503" />  <circle cx="148" cy="136" r="3" fill="#2E1503" />
+  </g>
+</svg>

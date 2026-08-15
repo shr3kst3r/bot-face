@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <clipPath id="avatar-clip">
+      <rect x="0" y="0" width="256" height="256" />
+    </clipPath>
+    <linearGradient id="bg-grad-linear" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F5D0FE" /><stop offset="100%" stop-color="#E879F9" /></linearGradient>
+    <radialGradient id="bg-grad-radial" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#E879F9" /><stop offset="100%" stop-color="#F5D0FE" /></radialGradient>
+    <linearGradient id="chassis-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#C084FC" /><stop offset="100%" stop-color="#9333EA" /></linearGradient>
+    <linearGradient id="metal-shine" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" /><stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.0" /><stop offset="100%" stop-color="#000000" stop-opacity="0.15" /></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="256" height="256" fill="url(#bg-grad-radial)" />
+  <g clip-path="url(#avatar-clip)">
+  <!-- Antenna / Top Gadget -->
+  <rect x="124" y="24" width="8" height="32" rx="4" fill="#9333EA" stroke="#210838" stroke-width="3" />  <circle cx="128" cy="22" r="13" fill="#22D3EE" stroke="#210838" stroke-width="3.5" />  <circle cx="124" cy="18" r="4" fill="#FFFFFF" />
+  <!-- Neck -->
+  <rect x="104" y="168" width="48" height="26" rx="5" fill="#9333EA" stroke="#210838" stroke-width="3.5" />
+  <circle cx="112" cy="181" r="3" fill="#210838" />  <circle cx="128" cy="181" r="3" fill="#210838" />  <circle cx="144" cy="181" r="3" fill="#210838" />
+  <!-- Torso -->
+  <path d="M 52 256 L 66 198 Q 72 188 84 188 L 172 188 Q 184 188 190 198 L 204 256 Z" fill="url(#chassis-grad)" stroke="#210838" stroke-width="5" />
+  <path d="M 84 188 L 172 188 L 166 198 L 90 198 Z" fill="#9333EA" opacity="0.7" />
+  <!-- Chest Badge -->
+  <circle cx="128" cy="224" r="16" fill="#210838" />  <circle cx="128" cy="224" r="10" stroke="#22D3EE" stroke-width="3" fill="none" />  <line x1="128" y1="216" x2="128" y2="223" stroke="#22D3EE" stroke-width="3" stroke-linecap="round" />
+  <!-- Ears / Side Attachments -->
+  <circle cx="44" cy="115" r="15" fill="#9333EA" stroke="#210838" stroke-width="3.5" />  <circle cx="44" cy="115" r="7" fill="#22D3EE" />  <circle cx="212" cy="115" r="15" fill="#9333EA" stroke="#210838" stroke-width="3.5" />  <circle cx="212" cy="115" r="7" fill="#22D3EE" />
+  <!-- Robot Cat Ears -->
+  <polygon points="56,80 82,30 102,72" fill="#C084FC" stroke="#210838" stroke-width="4" stroke-linejoin="round" />  <polygon points="64,74 82,42 94,68" fill="#22D3EE" />  <polygon points="200,80 174,30 154,72" fill="#C084FC" stroke="#210838" stroke-width="4" stroke-linejoin="round" />  <polygon points="192,74 174,42 162,68" fill="#22D3EE" />
+  <!-- Head Base -->
+  <rect x="48" y="54" width="160" height="124" rx="26" ry="26" fill="url(#chassis-grad)" stroke="#210838" stroke-width="5" />
+  <!-- Faceplate Screen -->
+  <rect x="66" y="74" width="124" height="88" rx="18" ry="18" fill="#2E1065" stroke="#210838" stroke-width="3" />
+  <!-- Eyes / Eyewear -->
+  <circle cx="98" cy="106" r="16" fill="#210838" />  <circle cx="98" cy="106" r="13" fill="#F43F5E" />  <circle cx="98" cy="106" r="8" fill="none" stroke="#210838" stroke-width="2.5" />  <circle cx="98" cy="106" r="4" fill="none" stroke="#210838" stroke-width="2" />
+  <circle cx="158" cy="106" r="16" fill="#210838" />  <circle cx="158" cy="106" r="13" fill="#F43F5E" />  <circle cx="158" cy="106" r="8" fill="none" stroke="#210838" stroke-width="2.5" />  <circle cx="158" cy="106" r="4" fill="none" stroke="#210838" stroke-width="2" />
+  <!-- Mouth / Expression -->
+  <path d="M 108 136 Q 128 154 148 136" fill="none" stroke="#210838" stroke-width="7" stroke-linecap="round" />  <path d="M 108 136 Q 128 154 148 136" fill="none" stroke="#22D3EE" stroke-width="4.5" stroke-linecap="round" />  <circle cx="108" cy="136" r="3" fill="#210838" />  <circle cx="148" cy="136" r="3" fill="#210838" />
+  </g>
+</svg>

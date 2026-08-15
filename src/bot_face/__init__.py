@@ -1,0 +1,107 @@
+"""bot-face: Cute robot avatar generator library and CLI for account profile images."""
+
+from __future__ import annotations
+
+from typing import Any
+
+from bot_face.colors import PALETTES, ColorPalette, get_palette, list_palettes
+from bot_face.config import AvatarConfig
+from bot_face.filters import AVAILABLE_FILTERS, apply_filter, list_filters
+from bot_face.generator import MOOD_PRESETS, generate
+from bot_face.models import RobotAvatar
+
+__version__ = "0.1.0"
+
+
+def render_svg(
+    seed: Any = None,
+    size: int = 256,
+    corner_radius: int = 0,
+    circle: bool = False,
+    palette: str | None = None,
+    filter: str | None = None,
+    has_hat: bool | None = None,
+    has_glasses: bool | None = None,
+    has_badge: bool | None = None,
+    cat: bool | None = None,
+    animal: str | None = None,
+    mood: str | None = None,
+    transparent: bool = False,
+    background_color: str | None = None,
+    shading: bool = True,
+) -> str:
+    """Convenience helper to generate an avatar and return its standalone SVG string."""
+    avatar = generate(
+        seed=seed,
+        size=size,
+        corner_radius=corner_radius,
+        circle=circle,
+        palette=palette,
+        filter=filter,
+        has_hat=has_hat,
+        has_glasses=has_glasses,
+        has_badge=has_badge,
+        cat=cat,
+        animal=animal,
+        mood=mood,
+        transparent=transparent,
+        background_color=background_color,
+        shading=shading,
+    )
+    return avatar.to_svg()
+
+
+def render_png(
+    seed: Any = None,
+    size: int = 256,
+    corner_radius: int = 0,
+    circle: bool = False,
+    palette: str | None = None,
+    filter: str | None = None,
+    has_hat: bool | None = None,
+    has_glasses: bool | None = None,
+    has_badge: bool | None = None,
+    cat: bool | None = None,
+    animal: str | None = None,
+    mood: str | None = None,
+    transparent: bool = False,
+    background_color: str | None = None,
+    shading: bool = True,
+) -> bytes:
+    """Convenience helper to generate an avatar and return encoded PNG bytes."""
+    avatar = generate(
+        seed=seed,
+        size=size,
+        corner_radius=corner_radius,
+        circle=circle,
+        palette=palette,
+        filter=filter,
+        has_hat=has_hat,
+        has_glasses=has_glasses,
+        has_badge=has_badge,
+        cat=cat,
+        animal=animal,
+        mood=mood,
+        transparent=transparent,
+        background_color=background_color,
+        shading=shading,
+    )
+    return avatar.to_bytes("png")
+
+
+__all__ = [
+    "AVAILABLE_FILTERS",
+    "MOOD_PRESETS",
+    "PALETTES",
+    "AvatarConfig",
+    "ColorPalette",
+    "RobotAvatar",
+    "__version__",
+    "apply_filter",
+    "generate",
+    "get_palette",
+    "list_filters",
+    "list_palettes",
+    "render_png",
+    "render_svg",
+]
