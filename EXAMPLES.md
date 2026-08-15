@@ -25,9 +25,13 @@ Coordinate eyes, mouth expressions, and accessories to communicate explicit emot
 
 | Preview | Mood Preset | Seed | Palette | Description |
 |:---:|---|---|---|---|
+| <img src="docs/examples/happy_bot.png" width="128" /> | `happy` | `happy_bot` | `sunny_lemon` | Beaming happy smile with sparkling anime pupil eyes, party hat, and round rosy blush. |
 | <img src="docs/examples/love_bot.png" width="128" /> | `love` | `love_bot` | `cotton_candy` | Glowing heart LED matrix eyes (`♥ ♥`), sweet heart blush cheeks, and heart chest badge. |
 | <img src="docs/examples/cool_bot.png" width="128" /> | `cool` | `cool_bot` | `cyberpunk_2077` | Sleek dark sunglasses, calm smile, and high-voltage neon yellow cyberpunk chassis. |
+| <img src="docs/examples/wink_bot.png" width="128" /> | `wink` | `wink_bot` | `bubblegum` | Playful wink eye with cheeky cat/vamp mouth, spinning propeller beanie, and rosy blush. |
+| <img src="docs/examples/surprised_bot.png" width="128" /> | `surprised` | `surprised_bot` | `electric_berry` | Surprised open mouth (`:o`) with wide sparkling lens eyes and bowtie. |
 | <img src="docs/examples/sleepy_bot.png" width="128" /> | `sleepy` | `sleepy_bot` | `lavender_sky` | Sleepy LED dot eyes, oscilloscope snooze wave mouth, and dash blush. |
+| <img src="docs/examples/neutral_bot.png" width="128" /> | `neutral` | `neutral_bot` | `tokyo_night` | Calm neutral robot with glossy pupil lens eyes, party hat, and speaker grill mouth. |
 
 ---
 
