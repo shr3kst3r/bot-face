@@ -53,6 +53,22 @@ class AvatarConfig(BaseModel):
         default=None,
         description="Force cute cat robot features (cat ears, whiskers, cat mouth, bell collar).",
     )
+    animal: str | None = Field(
+        default=None,
+        description="Animal robot preset: 'cat', 'bunny', 'bear' (or None for seeded choice).",
+    )
+    mood: str | None = Field(
+        default=None,
+        description="Expression preset: 'happy', 'cool', 'love', 'surprised', 'wink', etc.",
+    )
+    transparent: bool = Field(
+        default=False,
+        description="Render avatar with a fully transparent background.",
+    )
+    background_color: str | None = Field(
+        default=None,
+        description="Custom background color override (hex).",
+    )
     shading: bool = Field(
         default=True,
         description="Enable dimensional cel-shading, highlights, and shadow accents.",

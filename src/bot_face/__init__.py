@@ -7,7 +7,7 @@ from typing import Any
 from bot_face.colors import PALETTES, ColorPalette, get_palette, list_palettes
 from bot_face.config import AvatarConfig
 from bot_face.filters import AVAILABLE_FILTERS, apply_filter, list_filters
-from bot_face.generator import generate
+from bot_face.generator import MOOD_PRESETS, generate
 from bot_face.models import RobotAvatar
 
 __version__ = "0.1.0"
@@ -24,6 +24,10 @@ def render_svg(
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
     cat: bool | None = None,
+    animal: str | None = None,
+    mood: str | None = None,
+    transparent: bool = False,
+    background_color: str | None = None,
     shading: bool = True,
 ) -> str:
     """Convenience helper to generate an avatar and return its standalone SVG string."""
@@ -38,6 +42,10 @@ def render_svg(
         has_glasses=has_glasses,
         has_badge=has_badge,
         cat=cat,
+        animal=animal,
+        mood=mood,
+        transparent=transparent,
+        background_color=background_color,
         shading=shading,
     )
     return avatar.to_svg()
@@ -54,6 +62,10 @@ def render_png(
     has_glasses: bool | None = None,
     has_badge: bool | None = None,
     cat: bool | None = None,
+    animal: str | None = None,
+    mood: str | None = None,
+    transparent: bool = False,
+    background_color: str | None = None,
     shading: bool = True,
 ) -> bytes:
     """Convenience helper to generate an avatar and return encoded PNG bytes."""
@@ -68,6 +80,10 @@ def render_png(
         has_glasses=has_glasses,
         has_badge=has_badge,
         cat=cat,
+        animal=animal,
+        mood=mood,
+        transparent=transparent,
+        background_color=background_color,
         shading=shading,
     )
     return avatar.to_bytes("png")
@@ -75,6 +91,7 @@ def render_png(
 
 __all__ = [
     "AVAILABLE_FILTERS",
+    "MOOD_PRESETS",
     "PALETTES",
     "AvatarConfig",
     "ColorPalette",

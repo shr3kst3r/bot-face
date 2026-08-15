@@ -1,38 +1,51 @@
 # 🤖 Bot-Face Examples & Gallery
 
-A categorized visual gallery of avatars generated with `bot-face`, demonstrating **40 curated color palettes**, **3D cel-shading & flat modes**, **cute cat & animal features**, **retro visual filters**, and **custom corner clipping**.
+A categorized visual gallery of avatars generated with `bot-face`, demonstrating **40 curated color palettes**, **mood/expression presets**, **animal presets**, **3D cel-shading & flat modes**, **retro visual filters**, and **transparent backgrounds**.
 
 ---
 
 ## 📑 Table of Contents
 
-1. [🐱 Cat & Animal Robot Avatars](#1--cat--animal-robot-avatars)
-2. [💡 Shading & Lighting Modes](#2--shading--lighting-modes)
-3. [🕹️ Retro & Pixel Art Filters](#3-️-retro--pixel-art-filters)
-4. [🎨 Themed Characters & Color Palettes](#4--themed-characters--color-palettes)
+1. [🎭 Mood & Expression Presets](#1--mood--expression-presets)
+2. [🐾 Animal Robot Presets (Cat, Bunny, Bear)](#2--animal-robot-presets-cat-bunny-bear)
+3. [💡 Shading & Lighting Modes](#3--shading--lighting-modes)
+4. [🔲 Transparent Backgrounds & Stickers](#4--transparent-backgrounds--stickers)
+5. [🕹️ Retro & Pixel Art Filters](#5-️-retro--pixel-art-filters)
+6. [🎨 Themed Characters & Color Palettes](#6--themed-characters--color-palettes)
    - [Candy & Pastel](#-candy--pastel)
    - [Cyberpunk & Cosmic](#-cyberpunk--cosmic)
    - [Warm & Botanical](#-warm--botanical)
-5. [🔲 Corner Radius & Profile Clipping](#5--corner-radius--profile-clipping)
-6. [💻 Reproducible CLI & Python Recipes](#6--reproducible-cli--python-recipes)
+7. [💻 Reproducible CLI & Python Recipes](#7--reproducible-cli--python-recipes)
 
 ---
 
-## 1. 🐱 Cat & Animal Robot Avatars
+## 1. 🎭 Mood & Expression Presets
 
-Robots with feline features, whiskers, bell collars, animal ears, and cute expressions. Forced using `--cat` or `cat=True`.
+Coordinate eyes, mouth expressions, and accessories to communicate explicit emotional states via `--mood <name>` or `mood="..."`.
 
-| Preview | Seed | Palette | Style Options | Highlights |
+| Preview | Mood Preset | Seed | Palette | Description |
 |:---:|---|---|---|---|
-| <img src="docs/examples/cat_bot_neko.png" width="128" /> | `cat_bot_neko` | `bubblegum` | `--cat` (Radius: 32px) | Triple cheek whiskers, cute `:3` cat mouth, festive party hat, and golden bell collar. |
-| <img src="docs/examples/calico_bot.png" width="128" /> | `calico_bot` | `caramel_latte` | `--cat` (Circle Clip) | Calico caramel robot cat with glowing `^ ^` eyes, cute vamp fangs, heart blush, and bell collar. |
-| <img src="docs/examples/cyber_cat_9000.png" width="128" /> | `cyber_cat_9000` | `cyberpunk_2077` | `--cat` (`8bit`, Radius: 16px) | High-voltage neon yellow cyberpunk cat with whiskers, royal crown, and 8-bit retro filter. |
-| <img src="docs/examples/cotton_sweetie.png" width="128" /> | `cotton_sweetie` | `cotton_candy` | Radius: 36px | Robotic cat ears, rosy blushing cheeks, playful wink expression, and pastel strawberry milk palette. |
-| <img src="docs/examples/bunny_chef.png" width="128" /> | `bunny_chef` | `cherry_blossom` | Radius: 32px | Tall robotic bunny ears, tall pastry chef hat, and cute vamp fangs. |
+| <img src="docs/examples/love_bot.png" width="128" /> | `love` | `love_bot` | `cotton_candy` | Glowing heart LED matrix eyes (`♥ ♥`), sweet heart blush cheeks, and heart chest badge. |
+| <img src="docs/examples/cool_bot.png" width="128" /> | `cool` | `cool_bot` | `cyberpunk_2077` | Sleek dark sunglasses, calm smile, and high-voltage neon yellow cyberpunk chassis. |
+| <img src="docs/examples/sleepy_bot.png" width="128" /> | `sleepy` | `sleepy_bot` | `lavender_sky` | Sleepy LED dot eyes, oscilloscope snooze wave mouth, and dash blush. |
 
 ---
 
-## 2. 💡 Shading & Lighting Modes
+## 2. 🐾 Animal Robot Presets (Cat, Bunny, Bear)
+
+Dedicated animal presets (`--cat`, `--bunny`, `--bear`, or `--animal <name>`).
+
+| Preview | Animal | Seed | Palette | Description |
+|:---:|---|---|---|---|
+| <img src="docs/examples/cat_bot_neko.png" width="128" /> | `cat` (`--cat`) | `cat_bot_neko` | `bubblegum` | Pointed metallic cat ears, triple cheek whiskers, `:3` cat mouth, party hat, and bell collar. |
+| <img src="docs/examples/calico_bot.png" width="128" /> | `cat` (`--cat`) | `calico_bot` | `caramel_latte` | Circular caramel calico robot cat with glowing `^ ^` eyes, cute fangs, heart blush, and bell collar. |
+| <img src="docs/examples/bunny_sweetie.png" width="128" /> | `bunny` (`--bunny`) | `bunny_sweetie` | `cherry_blossom` | Tall robotic bunny ears, triple whiskers, bowtie badge, and sweet smile. |
+| <img src="docs/examples/bear_champ.png" width="128" /> | `bear` (`--bear`) | `bear_champ` | `golden_hour` | Circular honey bear avatar with rounded metallic bear ears, pawprint badge, and happy grin. |
+| <img src="docs/examples/bunny_chef.png" width="128" /> | `bunny` | `bunny_chef` | `cherry_blossom` | Tall bunny ears, tall pastry chef hat, and cute vamp fangs. |
+
+---
+
+## 3. 💡 Shading & Lighting Modes
 
 Toggle between dimensional cel-shading with specular highlight cuts and glass sheens (`shading=True`, default) or clean flat minimalist vector illustration (`--no-shading` / `shading=False`).
 
@@ -43,7 +56,17 @@ Toggle between dimensional cel-shading with specular highlight cuts and glass sh
 
 ---
 
-## 3. 🕹️ Retro & Pixel Art Filters
+## 4. 🔲 Transparent Backgrounds & Stickers
+
+Pass `--transparent` or `transparent=True` to render the avatar with an alpha transparent canvas. Ideal for UI sticker components, Discord avatars, badges, and dark/light web embeds.
+
+| Preview | Seed | Palette | Transparency | Description |
+|:---:|---|---|---|---|
+| <img src="docs/examples/transparent_sticker.png" width="128" /> | `transparent_sticker` | `bubblegum` | `--transparent` | Fully transparent background sticker ready to place on any website background color. |
+
+---
+
+## 5. 🕹️ Retro & Pixel Art Filters
 
 Transform any robot avatar into classic video game, CRT monitor, or blueprint aesthetics using `--filter <name>`.
 
@@ -60,7 +83,7 @@ Transform any robot avatar into classic video game, CRT monitor, or blueprint ae
 
 ---
 
-## 4. 🎨 Themed Characters & Color Palettes
+## 6. 🎨 Themed Characters & Color Palettes
 
 ### 🍬 Candy & Pastel
 
@@ -94,69 +117,47 @@ Transform any robot avatar into classic video game, CRT monitor, or blueprint ae
 
 ---
 
-## 5. 🔲 Corner Radius & Profile Clipping
+## 7. 💻 Reproducible CLI & Python Recipes
 
-| Shape | CLI Argument | Python Parameter | Visual Outcome |
-|---|---|---|---|
-| **Sharp Square** | `--radius 0` (default) | `corner_radius=0` | Classic square container for standard thumbnails |
-| **Rounded Rectangle** | `--radius 16` to `--radius 48` | `corner_radius=32` | Smooth modern app icon styling |
-| **Circular Clip** | `--circle` / `-c` | `circle=True` | Perfect round avatar ideal for modern social profile pictures |
-
----
-
-## 6. 💻 Reproducible CLI & Python Recipes
-
-### 1. Cute Cat Robot Neko
+### 1. In Love Robot with Heart Eyes
 ```bash
-bf generate "cat_bot_neko" --cat --palette bubblegum --radius 32 --output neko.png
+bf generate "love_bot" --mood love --palette cotton_candy --radius 32 --output love.png
 ```
 ```python
 import bot_face
 
-avatar = bot_face.generate(seed="cat_bot_neko", cat=True, palette="bubblegum", corner_radius=32)
-avatar.save("neko.png")
-avatar.save("neko.svg")
+avatar = bot_face.generate(seed="love_bot", mood="love", palette="cotton_candy", corner_radius=32)
+avatar.save("love.png")
 ```
 
-### 2. Flat Minimalist Avatar (No Shading)
+### 2. Bunny Robot with Whiskers
+```bash
+bf generate "bunny_sweetie" --bunny --palette cherry_blossom --radius 32 --output bunny.png
+```
+
+### 3. Transparent UI Sticker
+```bash
+bf generate "sticker_bot" --transparent --palette bubblegum --output sticker.png
+```
+
+### 4. Complete Web Favicon & App Icon Suite
+```bash
+bf iconset "brand_avatar" --palette cyber_mint --circle --output-dir ./web_icons
+```
+```python
+import bot_face
+
+avatar = bot_face.generate(seed="brand_avatar", palette="cyber_mint", circle=True)
+files = avatar.save_iconset("./web_icons")
+print(f"Generated {len(files)} icon files!")
+```
+
+### 5. Flat Minimalist Avatar (No Shading)
 ```bash
 bf generate "vector_bot" --no-shading --palette bubblegum --radius 32 --output flat.svg
 ```
-```python
-import bot_face
 
-avatar = bot_face.generate(seed="vector_bot", shading=False, palette="bubblegum", corner_radius=32)
-avatar.save("flat.svg")
-```
-
-### 3. Game Boy DMG-01 Retro LCD Screen
+### 6. Game Boy DMG-01 Retro LCD Screen
 ```bash
 bf generate "gameboy_nostalgia" --palette cyber_mint --filter gameboy --output gameboy.png
-```
-```python
-import bot_face
-
-avatar = bot_face.generate(seed="gameboy_nostalgia", palette="cyber_mint", filter="gameboy")
-avatar.save("gameboy.png")
-```
-
-### 4. 8-Bit Cyberpunk Pixel Art
-```bash
-bf generate "cyber_samurai" --palette cyberpunk_2077 --filter 8bit --radius 16 --output samurai.png
-```
-
-### 5. Circular Profile Avatar
-```bash
-bf generate "user_profile" --palette sunny_lemon --circle --output profile.png
-```
-```python
-import bot_face
-
-avatar = bot_face.generate(seed="user_profile", palette="sunny_lemon", circle=True)
-avatar.save("profile.png")
-```
-
-### 6. Batch Generation of Multiple Users
-```bash
-bf batch alice bob charlie dev_team admin --radius 24 --format png --output-dir ./avatars
 ```

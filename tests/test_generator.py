@@ -111,3 +111,37 @@ def test_generate_shading_override() -> None:
     assert flat.config.shading is False
     assert flat.to_svg().startswith("<svg")
     assert flat.to_image().size == (256, 256)
+
+
+def test_generate_mood_presets() -> None:
+    love_bot = generate(seed="mood_love", mood="love")
+    assert love_bot.anatomy.eye_style == "led_matrix_hearts"
+    assert love_bot.anatomy.cheek_style == "heart_blush"
+    assert love_bot.anatomy.badge_style == "heart"
+
+    surprised_bot = generate(seed="mood_surprised", mood="surprised")
+    assert surprised_bot.anatomy.mouth_style == "cute_o"
+
+    wink_bot = generate(seed="mood_wink", mood="wink")
+    assert wink_bot.anatomy.eye_style == "wink"
+
+
+def test_generate_animal_presets() -> None:
+    bunny_bot = generate(seed="bunny_123", animal="bunny")
+    assert bunny_bot.anatomy.head_style == "bunny_ears"
+    assert bunny_bot.anatomy.has_whiskers is True
+
+    bear_bot = generate(seed="bear_123", animal="bear")
+    assert bear_bot.anatomy.head_style == "bear_ears"
+
+
+def test_generate_transparent_and_bg_override() -> None:
+    transparent_bot = generate(seed="trans_bot", transparent=True)
+    assert transparent_bot.config.transparent is True
+    svg = transparent_bot.to_svg()
+    # In transparent mode, no background rect fill is drawn
+    assert '<rect x="0" y="0" width="256" height="256" fill=' not in svg
+
+    custom_bg_bot = generate(seed="custom_bg", background_color="#123456")
+    assert custom_bg_bot.config.background_color == "#123456"
+    assert "#123456" in custom_bg_bot.to_svg()

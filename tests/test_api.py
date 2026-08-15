@@ -32,3 +32,29 @@ def test_jupyter_repr_methods() -> None:
 
     png_repr = avatar._repr_png_()
     assert png_repr.startswith(b"\x89PNG")
+
+
+def test_html_and_react_helpers() -> None:
+    avatar = bot_face.generate(seed="react_test", size=128)
+    html = avatar.to_html_img(alt="Custom Bot", class_name="avatar-img")
+    assert '<img src="data:image/svg+xml;base64,' in html
+    assert 'alt="Custom Bot"' in html
+    assert 'class="avatar-img"' in html
+
+    react_comp = avatar.to_react_component("MyRobotIcon")
+    assert "export const MyRobotIcon" in react_comp
+    assert "<svg" in react_comp
+
+
+def test_save_iconset(tmp_path: bot_face.models.Path) -> None:
+    avatar = bot_face.generate(seed="iconset_test")
+    out_dir = tmp_path / "icons"
+    results = avatar.save_iconset(out_dir)
+
+    assert "favicon.ico" in results
+    assert "apple-touch-icon.png" in results
+    assert "site.webmanifest" in results
+    assert "html_snippet.html" in results
+    assert (out_dir / "favicon.ico").exists()
+    assert (out_dir / "apple-touch-icon.png").exists()
+    assert (out_dir / "site.webmanifest").exists()

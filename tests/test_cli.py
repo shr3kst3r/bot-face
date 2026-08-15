@@ -14,7 +14,7 @@ runner = CliRunner()
 def test_cli_version() -> None:
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0
-    assert "bot-face version" in result.output
+    assert "bot-face v" in result.output
 
 
 def test_cli_help() -> None:
@@ -90,7 +90,42 @@ def test_cli_generate_file(tmp_path: Path) -> None:
     )
     assert result.exit_code == 0
     assert out_file.exists()
-    assert "Saved avatar for seed" in result.output
+
+
+def test_cli_iconset(tmp_path: Path) -> None:
+    out_dir = tmp_path / "cli_icons"
+    result = runner.invoke(app, ["iconset", "icon_seed", "--output-dir", str(out_dir)])
+    assert result.exit_code == 0
+    assert (out_dir / "favicon.ico").exists()
+    assert (out_dir / "apple-touch-icon.png").exists()
+    assert (out_dir / "site.webmanifest").exists()
+
+
+def test_cli_moods() -> None:
+    result = runner.invoke(app, ["moods"])
+    assert result.exit_code == 0
+    assert "happy" in result.output
+    assert "love" in result.output
+
+
+def test_cli_options_bunny_mood_transparent(tmp_path: Path) -> None:
+    out_file = tmp_path / "bunny_love.svg"
+    result = runner.invoke(
+        app,
+        [
+            "generate",
+            "bunny_lover",
+            "--bunny",
+            "--mood",
+            "love",
+            "--transparent",
+            "--output",
+            str(out_file),
+        ],
+    )
+    assert result.exit_code == 0
+    assert out_file.exists()
+    assert "Generated avatar" in result.output
 
 
 def test_cli_generate_svg_stdout() -> None:

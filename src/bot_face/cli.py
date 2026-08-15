@@ -1,7 +1,8 @@
-"""Command-line interface for bot-face cute robot avatar generator."""
+"""Command Line Interface for bot-face avatar generator."""
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 from typing import Annotated
 
@@ -9,50 +10,52 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-import bot_face
 from bot_face.colors import PALETTES, get_palette, list_palettes
 from bot_face.filters import AVAILABLE_FILTERS, list_filters
-from bot_face.generator import generate
+from bot_face.generator import MOOD_PRESETS, generate
 
 app = typer.Typer(
     name="bot-face",
     help="🤖 Cute robot avatar generator library and CLI for account profile images.",
     no_args_is_help=True,
-    add_completion=False,
+    add_completion=True,
 )
+
 console = Console()
 err_console = Console(stderr=True)
 
 
 def version_callback(value: bool) -> None:
     if value:
-        v = bot_face.__version__
-        console.print(f"[bold cyan]bot-face[/bold cyan] version [green]{v}[/green]")
+        import bot_face
+
+        console.print(f"bot-face v{bot_face.__version__}")
         raise typer.Exit()
 
 
 @app.callback()
 def main_callback(
     version: Annotated[
-        bool,
+        bool | None,
         typer.Option(
             "--version",
             "-v",
-            help="Show the bot-face version and exit.",
+            help="Show the application version and exit.",
             callback=version_callback,
             is_eager=True,
         ),
-    ] = False,
+    ] = None,
 ) -> None:
-    pass
+    """Cute robot avatar generator."""
 
 
-@app.command(name="generate", help="Generate a cute robot avatar from a seed.")
+@app.command(name="generate", help="Generate a single robot avatar.")
 def generate_cmd(
     seed: Annotated[
         str | None,
         typer.Argument(
-            help="Seed value for deterministic generation. If omitted, a random seed is used.",
+            help="Seed string (username, email, id) to deterministically generate features. "
+            "If omitted, a random seed is chosen.",
         ),
     ] = None,
     output: Annotated[
@@ -60,7 +63,7 @@ def generate_cmd(
         typer.Option(
             "--output",
             "-o",
-            help="Output path (e.g. avatar.png, avatar.svg). Inferred from extension.",
+            help="Output filepath. Extension determines format (.png, .svg, .webp).",
         ),
     ] = None,
     format_opt: Annotated[
@@ -68,7 +71,7 @@ def generate_cmd(
         typer.Option(
             "--format",
             "-f",
-            help="Output image format: 'png', 'svg', 'webp', 'jpg'.",
+            help="Explicit format ('png', 'svg', 'webp', 'jpg').",
         ),
     ] = None,
     size: Annotated[
@@ -76,7 +79,7 @@ def generate_cmd(
         typer.Option(
             "--size",
             "-s",
-            help="Image width and height in pixels.",
+            help="Output image size (width and height) in pixels.",
             min=16,
             max=4096,
         ),
@@ -86,7 +89,7 @@ def generate_cmd(
         typer.Option(
             "--radius",
             "-r",
-            help="Corner radius in pixels for rounded corners.",
+            help="Corner radius in pixels (0 for square, >0 for rounded rectangle).",
             min=0,
         ),
     ] = 0,
@@ -96,6 +99,13 @@ def generate_cmd(
             "--circle",
             "-c",
             help="Clip the avatar into a circular shape.",
+        ),
+    ] = False,
+    random_seed: Annotated[
+        bool,
+        typer.Option(
+            "--random",
+            help="Force a random cryptographic seed regardless of input.",
         ),
     ] = False,
     palette: Annotated[
@@ -142,6 +152,51 @@ def generate_cmd(
             help="Force cute cat robot features (cat ears, whiskers, cat mouth).",
         ),
     ] = None,
+    bunny: Annotated[
+        bool,
+        typer.Option(
+            "--bunny",
+            help="Force cute bunny robot features (bunny ears, whiskers).",
+        ),
+    ] = False,
+    bear: Annotated[
+        bool,
+        typer.Option(
+            "--bear",
+            help="Force cute bear robot features (rounded bear ears).",
+        ),
+    ] = False,
+    animal: Annotated[
+        str | None,
+        typer.Option(
+            "--animal",
+            "-a",
+            help="Animal robot preset: 'cat', 'bunny', 'bear'.",
+        ),
+    ] = None,
+    mood: Annotated[
+        str | None,
+        typer.Option(
+            "--mood",
+            "-m",
+            help="Expression preset: 'happy', 'cool', 'love', 'surprised', 'wink', etc.",
+        ),
+    ] = None,
+    transparent: Annotated[
+        bool,
+        typer.Option(
+            "--transparent/--no-transparent",
+            help="Render with a transparent background.",
+        ),
+    ] = False,
+    bg_color: Annotated[
+        str | None,
+        typer.Option(
+            "--bg-color",
+            "--bg",
+            help="Custom background color override (hex).",
+        ),
+    ] = None,
     shading: Annotated[
         bool,
         typer.Option(
@@ -172,8 +227,17 @@ def generate_cmd(
         )
         raise typer.Exit(code=1)
 
+    effective_animal = animal
+    if bunny:
+        effective_animal = "bunny"
+    elif bear:
+        effective_animal = "bear"
+    elif cat is True:
+        effective_animal = "cat"
+
+    effective_seed = None if random_seed else seed
     avatar = generate(
-        seed=seed,
+        seed=effective_seed,
         size=size,
         corner_radius=radius,
         circle=circle,
@@ -183,6 +247,10 @@ def generate_cmd(
         has_glasses=glasses,
         has_badge=badge,
         cat=cat,
+        animal=effective_animal,
+        mood=mood,
+        transparent=transparent,
+        background_color=bg_color,
         shading=shading,
     )
 
@@ -201,52 +269,43 @@ def generate_cmd(
     if output is not None:
         saved_path = avatar.save(output, format=format_opt)
         pal_name = avatar.palette.name
-        f_info = f", filter: {filter_opt}" if filter_opt else ""
         console.print(
-            f"[green]✓[/green] Saved avatar for seed [bold cyan]'{avatar.seed}'[/bold cyan] "
-            f"to [bold]{saved_path}[/bold] ([yellow]{pal_name}[/yellow]{f_info}, {size}x{size}px)"
+            f"[green]✓[/green] Generated avatar -> [bold]{saved_path}[/bold] "
+            f"([cyan]{pal_name}[/cyan], {size}x{size}px)"
         )
         return
 
-    # If no output path and format is SVG, output to stdout
-    if format_opt == "svg":
-        console.print(avatar.to_svg(), highlight=False)
-        return
-
-    # Default fallback: save to local png file with seed name
-    safe_seed = "".join(c if c.isalnum() or c in "-_" else "_" for c in str(avatar.seed))[:32]
-    default_out = Path(f"bot_face_{safe_seed}.png")
-    saved_path = avatar.save(default_out, format="png")
-    pal_name = avatar.palette.name
-    f_info = f", filter: {filter_opt}" if filter_opt else ""
-    console.print(
-        f"[green]✓[/green] Generated avatar for seed [bold cyan]'{avatar.seed}'[/bold cyan] "
-        f"-> [bold]{saved_path}[/bold] ([yellow]{pal_name}[/yellow]{f_info}, {size}x{size}px)"
-    )
+    # Default: if no output file specified, write SVG to stdout
+    fmt = (format_opt or "svg").lower()
+    if fmt == "svg":
+        sys.stdout.write(avatar.to_svg())
+    else:
+        # Fallback stdout for binary: base64 data URI
+        sys.stdout.write(avatar.to_data_uri(format=fmt) + "\n")
 
 
-@app.command(name="batch", help="Generate robot avatars for multiple seeds in batch.")
+@app.command(name="batch", help="Batch generate multiple avatars for a list of seeds.")
 def batch_cmd(
     seeds: Annotated[
         list[str],
         typer.Argument(
-            help="List of seeds (usernames, IDs, emails) to generate avatars for.",
+            help="List of seeds (usernames, emails, ids) to generate avatars for.",
         ),
     ],
     output_dir: Annotated[
         Path,
         typer.Option(
             "--output-dir",
-            "-d",
-            help="Directory to save generated avatar files.",
+            "-o",
+            help="Directory to save generated avatars.",
         ),
-    ] = Path("avatars"),
+    ] = Path("./avatars"),
     format_opt: Annotated[
         str,
         typer.Option(
             "--format",
             "-f",
-            help="Output image format: 'png', 'svg', 'webp'.",
+            help="Output format: 'png', 'svg', 'webp'.",
         ),
     ] = "png",
     size: Annotated[
@@ -254,7 +313,7 @@ def batch_cmd(
         typer.Option(
             "--size",
             "-s",
-            help="Image width and height in pixels.",
+            help="Image size in pixels.",
             min=16,
             max=4096,
         ),
@@ -299,6 +358,29 @@ def batch_cmd(
             help="Force cute cat robot features (cat ears, whiskers, cat mouth).",
         ),
     ] = None,
+    animal: Annotated[
+        str | None,
+        typer.Option(
+            "--animal",
+            "-a",
+            help="Animal preset: 'cat', 'bunny', 'bear'.",
+        ),
+    ] = None,
+    mood: Annotated[
+        str | None,
+        typer.Option(
+            "--mood",
+            "-m",
+            help="Expression preset: 'happy', 'cool', 'love', 'surprised', 'wink', etc.",
+        ),
+    ] = None,
+    transparent: Annotated[
+        bool,
+        typer.Option(
+            "--transparent/--no-transparent",
+            help="Render with a transparent background.",
+        ),
+    ] = False,
     shading: Annotated[
         bool,
         typer.Option(
@@ -325,6 +407,9 @@ def batch_cmd(
             palette=palette,
             filter=filter_opt,
             cat=cat,
+            animal=animal,
+            mood=mood,
+            transparent=transparent,
             shading=shading,
         )
         safe_name = "".join(c if c.isalnum() or c in "-_" else "_" for c in s)[:48]
@@ -334,6 +419,80 @@ def batch_cmd(
         console.print(f"  [green]✓[/green] [bold]{s}[/bold] -> {out_file.name} ({p_name})")
 
     console.print(f"[bold green]Done![/bold green] All {len(seeds)} avatars generated.")
+
+
+@app.command(name="iconset", help="Generate a complete web favicon & app icon suite for a seed.")
+def iconset_cmd(
+    seed: Annotated[
+        str,
+        typer.Argument(
+            help="Seed value for the icon suite.",
+        ),
+    ],
+    output_dir: Annotated[
+        Path,
+        typer.Option(
+            "--output-dir",
+            "-o",
+            help="Directory to save the icon suite.",
+        ),
+    ] = Path("./icons"),
+    palette: Annotated[
+        str | None,
+        typer.Option(
+            "--palette",
+            "-p",
+            help="Explicit color palette.",
+        ),
+    ] = None,
+    circle: Annotated[
+        bool,
+        typer.Option(
+            "--circle",
+            "-c",
+            help="Clip icons to a circular shape.",
+        ),
+    ] = False,
+    transparent: Annotated[
+        bool,
+        typer.Option(
+            "--transparent/--no-transparent",
+            help="Render icons with a transparent background.",
+        ),
+    ] = False,
+    cat: Annotated[
+        bool | None,
+        typer.Option(
+            "--cat/--no-cat",
+            help="Force cute cat robot features.",
+        ),
+    ] = None,
+    mood: Annotated[
+        str | None,
+        typer.Option(
+            "--mood",
+            "-m",
+            help="Expression preset: 'happy', 'cool', 'love', 'surprised', 'wink', etc.",
+        ),
+    ] = None,
+) -> None:
+    """Generate favicon.ico, apple-touch-icon, chrome icons, SVG, and webmanifest."""
+    avatar = generate(
+        seed=seed,
+        palette=palette,
+        circle=circle,
+        transparent=transparent,
+        cat=cat,
+        mood=mood,
+        size=512,
+    )
+    results = avatar.save_iconset(output_dir)
+
+    console.print(
+        f"[bold green]✓ Web Icon Suite generated in [cyan]{output_dir}/[/cyan]:[/bold green]"
+    )
+    for fname, fpath in results.items():
+        console.print(f"  • [bold]{fname}[/bold] ({fpath.stat().st_size} bytes)")
 
 
 @app.command(name="preview", help="Preview robot avatar details and anatomy in terminal.")
@@ -367,6 +526,22 @@ def preview_cmd(
             help="Force cute cat robot features.",
         ),
     ] = None,
+    animal: Annotated[
+        str | None,
+        typer.Option(
+            "--animal",
+            "-a",
+            help="Animal preset: 'cat', 'bunny', 'bear'.",
+        ),
+    ] = None,
+    mood: Annotated[
+        str | None,
+        typer.Option(
+            "--mood",
+            "-m",
+            help="Expression preset: 'happy', 'cool', 'love', 'surprised', 'wink', etc.",
+        ),
+    ] = None,
     shading: Annotated[
         bool,
         typer.Option(
@@ -376,7 +551,15 @@ def preview_cmd(
     ] = True,
 ) -> None:
     """Inspect the generated features and colors for a given seed."""
-    avatar = generate(seed=seed, palette=palette, filter=filter_opt, cat=cat, shading=shading)
+    avatar = generate(
+        seed=seed,
+        palette=palette,
+        filter=filter_opt,
+        cat=cat,
+        animal=animal,
+        mood=mood,
+        shading=shading,
+    )
     a = avatar.anatomy
     p = avatar.palette
 
@@ -387,6 +570,8 @@ def preview_cmd(
     table.add_row("Palette", f"{p.name} — {p.description}")
     if filter_opt:
         table.add_row("Filter", filter_opt)
+    if mood:
+        table.add_row("Mood Preset", mood)
     table.add_row("Head Style", a.head_style.replace("_", " ").title())
     table.add_row("Faceplate", a.faceplate_style.replace("_", " ").title())
     table.add_row("Eyes / Eyewear", a.eye_style.replace("_", " ").title())
@@ -396,6 +581,7 @@ def preview_cmd(
     table.add_row("Chest Badge", a.badge_style.replace("_", " ").title())
     table.add_row("Hat", a.hat_style.replace("_", " ").title())
     table.add_row("Cheeks", a.cheek_style.replace("_", " ").title())
+    table.add_row("Whiskers", "Yes" if a.has_whiskers else "No")
     table.add_row("Background", a.background_style.replace("_", " ").title())
 
     console.print(table)
@@ -426,6 +612,30 @@ def filters_cmd() -> None:
 
     for name in list_filters():
         table.add_row(name, AVAILABLE_FILTERS[name])
+
+    console.print(table)
+
+
+@app.command(name="moods", help="List all available robot mood and expression presets.")
+def moods_cmd() -> None:
+    """List available mood presets (happy, cool, love, surprised, wink, sleepy, neutral)."""
+    table = Table(title="🎭 Bot-Face Mood & Expression Presets", header_style="bold magenta")
+    table.add_column("Mood", style="bold cyan", width=14)
+    table.add_column("Expression & Anatomy Focus", style="white")
+
+    mood_details = {
+        "happy": "Smiling mouth (^ ^ or open grin) + rosy blushing cheeks",
+        "cool": "Dark sunglasses / cyclops visor + calm smile",
+        "love": "Glowing heart LED matrix eyes (♥ ♥) + heart blush + heart chest badge",
+        "surprised": "Wide lens eyes (O O) + cute open mouth (:o) + lightbulb idea antenna",
+        "wink": "Playful wink eye + cute cat/vamp mouth + rosy blush",
+        "sleepy": "Half-closed LED dots/slits + oscilloscope snooze wave + dash blush",
+        "neutral": "Glossy pupil lenses + speaker grill mouth",
+    }
+
+    for name in MOOD_PRESETS:
+        desc = mood_details.get(name, "Expression preset")
+        table.add_row(name, desc)
 
     console.print(table)
 
